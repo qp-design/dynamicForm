@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import "index.less";
+import App from "pages/root";
+import AuthorityProvider from "libs/context/authorityProvider";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <AuthorityProvider>
+          <App />
+      </AuthorityProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
