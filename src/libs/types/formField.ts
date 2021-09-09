@@ -25,4 +25,5 @@ export interface FieldType {
   placeholder?: string;
   loading?: boolean;
   extraProps?: { [k: string]: unknown };
+  style?: { [k: string]: unknown };
 }

@@ -1,35 +1,34 @@
 import Capture from "../capture";
 import { FieldType } from "libs/types/formField";
+import user from 'static/user.png';
+import password from 'static/password.png';
 
 const fieldsForm: Array<FieldType> = [
   {
     name: "sign",
     type: "text",
     label: "",
-    rules: [{ required: true, message: "请输入账号" }],
+    rules: [{ required: true, message: "请输入手机号" }],
     extraProps: {
-      placeholder: "账号",
+      prefix: <img src={user} width={20}/>,
+      placeholder: "手机号",
       style: {
-        height: 50,
-        background: "#f2f2f2",
+        height: 40,
       },
-      size: "large",
     },
   },
   {
     name: "password",
     type: "text",
     label: "",
-    rules: [{ required: true, message: "请输入密码" }],
+    rules: [{ required: true, message: "请输入登陆密码" }],
     extraProps: {
-      placeholder: "密码",
+      prefix: <img src={password} width={20}/>,
+      placeholder: "请输入登陆密码",
       style: {
-        marginTop: 10,
-        height: 50,
-        background: "#f2f2f2",
+        height: 40,
       },
       type: "password",
-      size: "large",
     },
   },
   {
@@ -37,13 +36,28 @@ const fieldsForm: Array<FieldType> = [
     type: "text",
     label: "",
     rules: [{ required: true, message: "请输入验证码" }],
+    style: {
+      marginBottom: 15,
+    },
     extraProps: {
-      placeholder: "验证码",
+      placeholder: "请输入验证码",
       className: "diyHeightInput",
       addonAfter: <Capture />,
-      size: "large",
     },
   },
+  {
+    name: "remember",
+    type: "checkbox",
+    label: "",
+    style: {
+      marginBottom: 0,
+    },
+    extraProps: {
+      options: [
+        { label: '记住密码', value: '1' },
+      ],
+    },
+  }
 ];
 
 export default fieldsForm;

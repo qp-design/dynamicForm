@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import { Row, Col } from "antd";
-
 interface Props {
   colNum: number;
   children?: ReactNode;

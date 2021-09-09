@@ -22,10 +22,10 @@ const User = memo(() => {
   };
 
   const resetHandler = () => {
-    PubSub.publish("isEditor", {
-      title: "修改密码",
-      maskClosable: true,
-    });
+    // PubSub.publish("isEditor", {
+    //   title: "修改密码",
+    //   maskClosable: true,
+    // });
   };
 
   const menu = (

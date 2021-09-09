@@ -66,7 +66,7 @@ const DynamicForm = ({
       name="basic"
       onValuesChange={onValuesChange?.bind(null, form)}
     >
-      {dynamicFormFields(fields)}
+      { dynamicFormFields(fields) }
       <Form.Item wrapperCol={wrapperCol}>
         <>
           {saveText && (

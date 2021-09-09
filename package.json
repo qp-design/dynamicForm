@@ -51,6 +51,7 @@
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
+    "@types/lodash": "^4.14.172",
     "@types/qs": "^6.9.7",
     "@types/react-router-dom": "^5.1.8",
     "eslint-config-prettier": "^8.3.0",

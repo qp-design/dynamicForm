@@ -5,10 +5,8 @@ import App from "pages/root";
 import AuthorityProvider from "libs/context/authorityProvider";
 
 ReactDOM.render(
-  <React.StrictMode>
-      <AuthorityProvider>
-          <App />
-      </AuthorityProvider>
-  </React.StrictMode>,
+  <AuthorityProvider>
+      <App />
+  </AuthorityProvider>,
   document.getElementById('root')
 );

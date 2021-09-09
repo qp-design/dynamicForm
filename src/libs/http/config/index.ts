@@ -3,7 +3,7 @@ import { defaultPath } from 'libs/http/config/originPath'
 import qs from 'qs'
 
 const xhrFactory = ({url = '', method = 'GET', contextType = 'application/json'}) =>
-  (params = {}, signal: AbortSignal | null) => {
+  (params = {}, signal?: AbortSignal | null) => {
     let appendPath = '';
     const config : RequestInit = {
       signal,

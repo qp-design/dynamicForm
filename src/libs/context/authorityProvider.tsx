@@ -42,24 +42,7 @@ const AuthorityProvider = ({children}: { children: ReactNode }) => {
     value.password = encryptPassword(password);
     try {
       const data = await login(value);
-      if (data.status === 402) {
-        modelHandler(
-          () => {
-            setDataMethod(data.data);
-            PubSub.publish("isEditor", {
-              title: "修改密码",
-              closable: false,
-            });
-          },
-          "友情提示",
-          `为保证账户安全，请在5天内修改密码，谢谢。`,
-          () => {
-            setDataMethod(data.data);
-          }
-        );
-      } else {
-        setDataMethod(data.data);
-      }
+      // setDataMethod(data);
       suc();
     } catch (e) {
       error();
@@ -78,11 +61,11 @@ const AuthorityProvider = ({children}: { children: ReactNode }) => {
       });
 
   const resetPasswordImeplement = (params: resetForm) => {
-    const {oldPassword, newPassword, again} = params;
-    params.again = encryptPassword(again);
-    params.oldPassword = encryptPassword(oldPassword);
-    params.newPassword = encryptPassword(newPassword);
-    return resetPassword(params);
+    // const {oldPassword, newPassword, again} = params;
+    // params.again = encryptPassword(again);
+    // params.oldPassword = encryptPassword(oldPassword);
+    // params.newPassword = encryptPassword(newPassword);
+    // return resetPassword(params);
   };
 
   return (

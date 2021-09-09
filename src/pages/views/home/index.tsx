@@ -2,7 +2,7 @@ import { FC } from "react";
 
 const Index: FC = () => {
   return (
-   1
+     <div>123</div>
   );
 };
 

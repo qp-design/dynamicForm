@@ -1,7 +1,6 @@
 import { captcha } from "libs/api/user-api";
 import React, { useEffect, useState } from "react";
-import { AxiosResponse } from "axios";
-import { useSafeImplement } from "../../../libs/hooks";
+import { useSafeImplement } from "libs/hooks";
 
 const Capture = (): JSX.Element => {
   const [url, setUrl] = useState<string>("");
@@ -13,14 +12,14 @@ const Capture = (): JSX.Element => {
 
   const getImagesUrl = () => {
     captcha()
-      .then((res: AxiosResponse<BlobPart>) => {
-        const url = window.URL.createObjectURL(res.data);
-        safeSetUrl(url);
-      })
-      .catch(() => {});
+      // .then((res: AxiosResponse<BlobPart>) => {
+      //   const url = window.URL.createObjectURL(res.data);
+      //   safeSetUrl(url);
+      // })
+      // .catch(() => {});
   };
   return (
-    <img onClick={getImagesUrl} src={url} alt={url} height={48} width={150} />
+    <img onClick={getImagesUrl} src={url} alt={url} height={38} width={150} />
   );
 };
 export default Capture;
