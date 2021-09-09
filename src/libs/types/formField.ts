@@ -7,7 +7,7 @@ type formType =
   | "checkbox"
   | "file"
   | "select"
-  | "render";
+  | "slot";
 
 type callResolver = (msg?: string) => void;
 export type submitType<T = any> = [T, callResolver, callResolver];

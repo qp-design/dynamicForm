@@ -1,3 +1,4 @@
-export default function SlotField({ diyRender, ...extraProps }) {
-  return diyRender({...extraProps})
+export default function SlotField({ ...extraProps }) {
+  const { diyRender, ...restProps } = extraProps;
+  return diyRender({ ...restProps });
 }
