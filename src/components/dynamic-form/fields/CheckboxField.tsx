@@ -1,5 +1,13 @@
-import { Checkbox } from 'antd';
+import Checkbox from "antd/lib/checkbox";
+import { FormInstance } from "antd";
 
-export default function CheckboxField({ ...extraProps }) {
-  return <Checkbox.Group {...extraProps} />
+export default function CheckboxField({
+  form,
+  lable,
+  ...extraProps
+}: {
+  form: FormInstance;
+  lable: string;
+}) {
+  return <Checkbox {...extraProps}>{lable}</Checkbox>;
 }

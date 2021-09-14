@@ -5,20 +5,23 @@ import {
   TextAreaField,
   InputField,
   CheckboxField,
+  CheckboxGroupField,
   SlotField,
 } from "components/dynamic-form/fields";
 import { Form } from "antd";
 import get from "lodash/get";
+import { FormInstance } from "antd/lib/form/hooks/useForm";
 
 const FieldTypeComponent = {
   number: NumberField,
   textarea: TextAreaField,
   text: InputField,
   checkbox: CheckboxField,
+  checkboxGroup: CheckboxGroupField,
   slot: SlotField,
 };
 
-const dynamicFormFields = (fields: Array<FieldType>) => {
+const dynamicFormFields = (fields: Array<FieldType>, form: FormInstance) => {
   return fields.map(
     ({
       name,
@@ -32,23 +35,20 @@ const dynamicFormFields = (fields: Array<FieldType>) => {
       const FormItem = Form.Item;
 
       const formItemProps: { [k: string]: unknown } = {
-        label: type === "checkbox" ? "" : label,
+        label,
         name,
         type,
         readOnly,
         rules,
+        valuePropName: type === "checkbox" ? "checked" : "value",
         ...rest,
       };
 
-      const FieldComponent: React.FC = get(
-        FieldTypeComponent,
-        type,
-        InputField
-      );
+      const FieldComponent = get(FieldTypeComponent, type, InputField);
 
       return (
         <FormItem key={name} {...formItemProps}>
-          <FieldComponent {...extraProps} />
+          <FieldComponent {...extraProps} form={form} />
         </FormItem>
       );
     }

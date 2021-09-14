@@ -1,28 +1,35 @@
-import fetchImplement from 'libs/http/index';
-import { defaultPath } from 'libs/http/config/originPath'
-import qs from 'qs'
+import fetchImplement from "libs/http/index";
+import { defaultPath } from "libs/http/config/originPath";
+import qs from "qs";
+import { paramsType } from "libs/types/queryParamsType";
 
-const xhrFactory = ({url = '', method = 'GET', contextType = 'application/json'}) =>
-  (params = {}, signal?: AbortSignal | null) => {
-    let appendPath = '';
-    const config : RequestInit = {
+const xhrFactory =
+  ({
+    url = "",
+    method = "GET",
+    contextType = "application/json",
+    responseType = "json",
+  }) =>
+  (params?: paramsType, signal?: AbortSignal) => {
+    let appendPath = "";
+    const config: RequestInit = {
       signal,
       method,
       headers: {
-        'Content-Type': contextType,
+        "Content-Type": contextType,
       },
     };
 
     params = removeEmptyParams(params);
 
-    if (method === 'GET') {
+    if (method === "GET") {
       appendPath += `?${qs.stringify(params)}`;
-    } else if (contextType === 'application/x-www-form-urlencoded') {
+    } else if (contextType === "application/x-www-form-urlencoded") {
       config.body = qs.stringify(params);
     } else {
       config.body = JSON.stringify(params);
     }
-    return fetchImplement(defaultPath + url + appendPath, config)
+    return fetchImplement(defaultPath + url + appendPath, config, responseType);
   };
 
 /**
@@ -30,7 +37,7 @@ const xhrFactory = ({url = '', method = 'GET', contextType = 'application/json'}
  * @returns {*}
  * @param target
  */
-type ParamsTypes = Array<unknown> | { [k: string]: unknown };
+type paramsTy = Array<unknown> | { [k: string]: unknown };
 
 const removeEmptyParams = (target: any) => {
   if (target === null) return null;
@@ -38,7 +45,7 @@ const removeEmptyParams = (target: any) => {
     return target;
   }
 
-  const newParamsTarget: ParamsTypes = Array.isArray(target) ? [] : {};
+  const newParamsTarget: paramsTy = Array.isArray(target) ? [] : {};
   for (let prop in target) {
     /**
      * 为空删除key

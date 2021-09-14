@@ -2,12 +2,12 @@ import Capture from "../capture";
 import { FieldType } from "libs/types/formField";
 import user from "static/user.png";
 import password from "static/password.png";
-import CheckboxField from "components/dynamic-form/fields/CheckboxField";
+import CheckboxGroupField from "components/dynamic-form/fields/CheckboxGroupField";
 import Button from "antd/lib/button";
 
 const fieldsForm: Array<FieldType> = [
   {
-    name: "sign",
+    name: "mobile",
     type: "text",
     label: "",
     rules: [{ required: true, message: "请输入手机号" }],
@@ -44,31 +44,35 @@ const fieldsForm: Array<FieldType> = [
     extraProps: {
       placeholder: "请输入验证码",
       className: "diyHeightInput",
-      addonAfter: <Capture />,
+      addonAfter: () => <Capture />,
     },
   },
   {
     name: "remember",
     type: "slot",
-    label: "",
     style: {
       marginBottom: 0,
     },
     extraProps: {
       diyRender({ ...restProps }) {
         return (
-          <>
-            <CheckboxField {...restProps} />
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <CheckboxGroupField {...restProps} />
             <Button
               type="link"
-              style={{ display: "inline", width: "auto", height: "auto" }}
+              style={{
+                fontWeight: 700,
+                lineHeight: 1,
+                padding: 0,
+                height: "auto",
+              }}
             >
               忘记密码
             </Button>
-          </>
+          </div>
         );
       },
-      options: [{ label: "记住密码", value: "1" }],
+      options: [{ label: "记住密码", value: 1 }],
     },
   },
 ];

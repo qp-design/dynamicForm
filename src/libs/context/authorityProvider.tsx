@@ -1,23 +1,20 @@
-import React, {ReactNode, useEffect, useState} from "react";
-import {User} from "libs/types/user";
-import {loginForm, resetForm} from "libs/types/login";
-import {login, logout, resetPassword} from "libs/api/user-api";
-// import { AxiosResponse } from "axios";
+import React, { ReactNode, useEffect, useState } from "react";
+import { User } from "libs/types/user";
+import { loginForm, resetForm } from "libs/types/login";
+import { login, logout, resetPassword } from "libs/api/user-api";
 import util from "libs/utils/util";
-import {submitType} from "libs/types/formField";
-import {useMountedRef} from "libs/hooks";
-import encryptPassword from "libs/utils/crpy";
-import {modelHandler} from "../utils/model";
-
+import { submitType } from "libs/types/formField";
+import { useMountedRef } from "libs/hooks";
+import omit from "lodash/omit";
 const AuthorityContext = React.createContext<{
   user: User | null;
   loginImplement: (...args: submitType<loginForm>) => void;
   loginOutImplement: () => void;
-  // resetPasswordImeplement: (form: resetForm) => Promise<AxiosResponse>;
 } | null>(null);
+
 AuthorityContext.displayName = "AuthorityContext";
 
-const AuthorityProvider = ({children}: { children: ReactNode }) => {
+const AuthorityProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const mountedRef = useMountedRef();
 
@@ -29,20 +26,19 @@ const AuthorityProvider = ({children}: { children: ReactNode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const setDataMethod = (res: User) => {
+  const setDataMethod = (res: User): void => {
     if (mountedRef.current) {
       setUser(res);
-      util.setStorage("__authInfo__", res);
+      util.setStorage("__authInfo__", JSON.stringify(res));
     }
   };
 
   const loginImplement = async (...args: submitType<loginForm>) => {
     const [value, suc, error] = args;
-    const {password} = value;
-    value.password = encryptPassword(password);
+    const params = omit(value, "remember");
     try {
-      const data = await login(value);
-      // setDataMethod(data);
+      const data = await login(params);
+      setDataMethod(data);
       suc();
     } catch (e) {
       error();
@@ -57,16 +53,7 @@ const AuthorityProvider = ({children}: { children: ReactNode }) => {
           util.clearStorage("__authInfo__");
         }
       })
-      .catch(() => {
-      });
-
-  const resetPasswordImeplement = (params: resetForm) => {
-    // const {oldPassword, newPassword, again} = params;
-    // params.again = encryptPassword(again);
-    // params.oldPassword = encryptPassword(oldPassword);
-    // params.newPassword = encryptPassword(newPassword);
-    // return resetPassword(params);
-  };
+      .catch(() => {});
 
   return (
     <AuthorityContext.Provider
@@ -74,7 +61,6 @@ const AuthorityProvider = ({children}: { children: ReactNode }) => {
         user,
         loginImplement,
         loginOutImplement,
-        // resetPasswordImeplement,
       }}
     >
       {children}

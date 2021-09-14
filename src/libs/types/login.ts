@@ -1,11 +1,10 @@
 export interface loginForm {
-  sign: string;
+  mobile: string;
   password: string;
   code: string;
 }
 
 export interface resetForm {
-  oldPassword: string;
-  newPassword: string;
-  again: string;
+  password: string;
+  code: string;
 }

@@ -1,22 +1,43 @@
+import { message } from "antd";
+
 export default function fetchImplement(
-    url: RequestInfo,
-    config : RequestInit
-): Promise<Response> {
+  url: RequestInfo,
+  config: RequestInit,
+  responseType: string
+): Promise<any> {
   return new Promise(function (resolve, reject) {
     fetch(url, config)
-      .then(async(response) => {
-        if(response.status === 401) {
+      .then(async (response) => {
+        if (response.status === 401) {
           // 没有登录
           reject({ message: "请重新登录" });
         }
-        const data = await response.json();
-        if(data.code === '0') {
-          resolve(data.data)
-        } else {
-          throw new Error(data.msg)
+        let data;
+        switch (responseType) {
+          case "blob":
+            data = await response.blob();
+            // @ts-ignore
+            resolve(data);
+            return;
+          case "text":
+            data = await response.text();
+            break;
+          case "formData":
+            data = await response.formData();
+            break;
+          default:
+            data = await response.json();
+            break;
         }
-      }).catch(error => {
-        reject(error)
+        if (data.code === 200) {
+          resolve(data.data);
+        } else {
+          message.warning(data.msg);
+          throw new Error(data.msg);
+        }
       })
-  })
+      .catch((error) => {
+        reject(error);
+      });
+  });
 }

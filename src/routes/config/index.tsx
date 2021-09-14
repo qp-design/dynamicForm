@@ -1,5 +1,5 @@
 import { USER_INDEX } from "../routesPath";
-import Index from "../../pages/views/home";
+import Index from "pages/views/ai";
 import { routeComponentType } from "libs/types/routeComponentType";
 const index: Array<routeComponentType> = [
   {

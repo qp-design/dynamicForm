@@ -11,14 +11,15 @@ interface Props extends FormProps {
   onSubmit: (...args: submitType) => void;
   fields: Array<FieldType>;
   onValuesChange?: (...args: unknown[]) => void;
-  formItemLayout?: { labelCol: ColProps; wrapperCol: ColProps };
+  wrapperCol?: ColProps;
+  formItemLayout?: { labelCol?: ColProps; wrapperCol?: ColProps };
 }
 
 const DynamicForm = ({
   saveText,
   layout = "horizontal",
-  wrapperCol = { span: 18, offset: 6 },
-  formItemLayout = { labelCol: { span: 6 }, wrapperCol: { span: 18 } },
+  wrapperCol = {},
+  formItemLayout = {},
   initialValues,
   onSubmit,
   onValuesChange,
@@ -66,7 +67,7 @@ const DynamicForm = ({
       name="basic"
       onValuesChange={onValuesChange?.bind(null, form)}
     >
-      { dynamicFormFields(fields) }
+      {dynamicFormFields(fields, form)}
       <Form.Item wrapperCol={wrapperCol}>
         <>
           {saveText && (

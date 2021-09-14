@@ -1,6 +1,6 @@
 import { Menu, Dropdown, Button, Avatar } from "antd";
 import { DownOutlined } from "@ant-design/icons";
-import { memo, useState } from "react";
+import { Dispatch, memo, useState } from "react";
 // import styled from "styled-components";
 import { modelHandler } from "libs/utils/model";
 import { useAuth } from "libs/context/authorityProvider";
@@ -10,7 +10,7 @@ import { useAuth } from "libs/context/authorityProvider";
 //   width: 140px;
 //   height: 31px;
 // `;
-const User = memo(() => {
+const User = memo(({ setIsShow }: { setIsShow: Dispatch<boolean> }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const { user, loginOutImplement } = useAuth();
   const handleVisibleChange = (flag: boolean) => {
@@ -22,10 +22,7 @@ const User = memo(() => {
   };
 
   const resetHandler = () => {
-    // PubSub.publish("isEditor", {
-    //   title: "修改密码",
-    //   maskClosable: true,
-    // });
+    setIsShow(true);
   };
 
   const menu = (
@@ -47,7 +44,7 @@ const User = memo(() => {
         visible={visible}
       >
         <Button type={"link"}>
-          <Avatar src={user?.avator} />
+          {/*<Avatar src={user?.avator} />*/}
           <span style={{ paddingLeft: 10 }}>{user?.name}</span> <DownOutlined />
         </Button>
       </Dropdown>

@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 import "index.less";
 import App from "pages/root";
 import AuthorityProvider from "libs/context/authorityProvider";
 
 ReactDOM.render(
   <AuthorityProvider>
-      <App />
+    <App />
   </AuthorityProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

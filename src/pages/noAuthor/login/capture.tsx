@@ -7,16 +7,15 @@ const Capture = (): JSX.Element => {
   const safeSetUrl = useSafeImplement(setUrl);
   useEffect(() => {
     getImagesUrl();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getImagesUrl = () => {
     captcha()
-      // .then((res: AxiosResponse<BlobPart>) => {
-      //   const url = window.URL.createObjectURL(res.data);
-      //   safeSetUrl(url);
-      // })
-      // .catch(() => {});
+      .then((res: Response) => {
+        const url = window.URL.createObjectURL(res);
+        safeSetUrl(url);
+      })
+      .catch(() => {});
   };
   return (
     <img onClick={getImagesUrl} src={url} alt={url} height={38} width={150} />

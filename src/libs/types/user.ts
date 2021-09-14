@@ -1,5 +1,6 @@
-export type User = {
+export interface User {
   name: string;
-  avator?: string;
-  id?: number;
-};
+  api_token: string;
+  no: string;
+  mobile: string;
+}

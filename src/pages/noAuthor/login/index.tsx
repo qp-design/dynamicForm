@@ -1,11 +1,10 @@
 import React, { FC } from "react";
 import { loginFormParam } from "./config";
 import DynamicForm from "components/form";
-import AlignMiddleCenter from "components/alignMiddleCenter";
 import { useAuth } from "libs/context/authorityProvider";
 import { useBackground } from "libs/hooks";
 import "pages/noAuthor/login/loginStyle/index.less";
-import logo from 'static/logo.png'
+import logo from "static/logo.png";
 
 const Login: FC = () => {
   const { loginImplement } = useAuth();
@@ -15,13 +14,9 @@ const Login: FC = () => {
   useBackground("#20222A");
 
   return (
-    <AlignMiddleCenter colNum={8}>
+    <div className={"loginComponent"}>
       <div className="loginStyle">
-        <img
-          alt={'logo'}
-          width={160}
-          src={logo}
-        />
+        <img alt={"logo"} width={160} src={logo} />
         <h1>诊断医师平台</h1>
         <DynamicForm
           saveText={"登录"}
@@ -31,7 +26,7 @@ const Login: FC = () => {
           fields={loginFormParam}
         />
       </div>
-    </AlignMiddleCenter>
+    </div>
   );
 };
 export default Login;
