@@ -1,11 +1,12 @@
 import { FC, useState } from "react";
 import SearchJsx from "./components/search";
 import User from "components/user/user";
-import { Layout, Modal } from "antd";
+import { Layout } from "antd";
 import "./style/index.less";
-import ResultJsx from "./components/result";
+import ResultJsx from "./components";
 import DialogJsx from "../../../components/dialog";
 import ResetPassWordJsx from "../../noAuthor/resetPassword";
+import { resetPasswordForm } from "../../noAuthor/login/config";
 
 const { Content } = Layout;
 
@@ -27,7 +28,7 @@ const Index: FC = () => {
           onCancel: () => setIsShow(false),
         }}
       >
-        <ResetPassWordJsx />
+        <ResetPassWordJsx fields={resetPasswordForm.slice(0, 1)} />
       </DialogJsx>
     </Content>
   );

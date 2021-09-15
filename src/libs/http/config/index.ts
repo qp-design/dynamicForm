@@ -1,16 +1,14 @@
 import fetchImplement from "libs/http/index";
 import { defaultPath } from "libs/http/config/originPath";
 import qs from "qs";
-import { paramsType } from "libs/types/queryParamsType";
 
-const xhrFactory =
-  ({
-    url = "",
-    method = "GET",
-    contextType = "application/json",
-    responseType = "json",
-  }) =>
-  (params?: paramsType, signal?: AbortSignal) => {
+const xhrFactory = ({
+  url = "",
+  method = "GET",
+  contextType = "application/json",
+  responseType = "json",
+}) =>
+  function fn<T>(params?: T, signal?: AbortSignal) {
     let appendPath = "";
     const config: RequestInit = {
       signal,

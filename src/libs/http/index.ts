@@ -16,7 +16,6 @@ export default function fetchImplement(
         switch (responseType) {
           case "blob":
             data = await response.blob();
-            // @ts-ignore
             resolve(data);
             return;
           case "text":
@@ -30,6 +29,9 @@ export default function fetchImplement(
             break;
         }
         if (data.code === 200) {
+          if ([null].includes(data.data)) {
+            message.success(data.msg);
+          }
           resolve(data.data);
         } else {
           message.warning(data.msg);

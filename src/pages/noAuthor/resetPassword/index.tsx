@@ -1,25 +1,23 @@
-import { resetPasswordForm } from "pages/noAuthor/login/config";
 import DynamicForm from "components/form";
-import { submitType } from "libs/types/formField";
+import { FieldType, submitType } from "libs/types/formField";
 import { resetForm } from "libs/types/login";
 import { resetPassword } from "libs/api/user-api";
+import util from "libs/utils/util";
 
-const ResetPassWordJsx = () => {
+const ResetPassWordJsx = ({ fields }: { fields: Array<FieldType> }) => {
   const onSubmit = async (...args: submitType<resetForm>) => {
     const [value, suc, error] = args;
     try {
-      const data = await resetPassword({ ...value });
-      console.log(data);
-    } catch (e) {}
-    suc();
+      await resetPassword<resetForm>(value);
+      util.clearStorage("__authInfo__");
+      window.location.reload();
+    } catch (e) {
+      error();
+    }
   };
 
   return (
-    <DynamicForm
-      saveText={"立即修改"}
-      fields={resetPasswordForm}
-      onSubmit={onSubmit}
-    />
+    <DynamicForm saveText={"立即修改"} fields={fields} onSubmit={onSubmit} />
   );
 };
 export default ResetPassWordJsx;

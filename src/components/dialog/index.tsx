@@ -1,5 +1,6 @@
 import { Modal } from "antd";
 import { ReactNode } from "react";
+import { useAuth } from "libs/context/authorityProvider";
 
 interface DialogType {
   children: ReactNode;
@@ -7,7 +8,6 @@ interface DialogType {
 }
 
 const DialogJsx = ({ children, resetProps }: DialogType) => {
-  // const [isShow, setIsShow] = useState<boolean>(false);
   return (
     <Modal footer={null} maskClosable={false} {...resetProps}>
       {children}

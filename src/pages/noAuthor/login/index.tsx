@@ -1,13 +1,15 @@
 import React, { FC } from "react";
-import { loginFormParam } from "./config";
+import { loginFormParam, resetPasswordForm } from "./config";
 import DynamicForm from "components/form";
 import { useAuth } from "libs/context/authorityProvider";
 import { useBackground } from "libs/hooks";
 import "pages/noAuthor/login/loginStyle/index.less";
 import logo from "static/logo.png";
+import DialogJsx from "components/dialog";
+import ResetPassWordJsx from "../resetPassword";
 
 const Login: FC = () => {
-  const { loginImplement } = useAuth();
+  const { loginImplement, isShow, setShowModel } = useAuth();
   const onConfirm = (...args: Parameters<typeof loginImplement>) =>
     loginImplement(...args);
 
@@ -25,6 +27,15 @@ const Login: FC = () => {
           onSubmit={onConfirm}
           fields={loginFormParam}
         />
+        <DialogJsx
+          resetProps={{
+            title: "忘记密码",
+            visible: isShow,
+            onCancel: () => setShowModel(false),
+          }}
+        >
+          <ResetPassWordJsx fields={resetPasswordForm} />
+        </DialogJsx>
       </div>
     </div>
   );

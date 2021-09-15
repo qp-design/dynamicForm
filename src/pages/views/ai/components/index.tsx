@@ -1,8 +1,9 @@
-import ResultContentJsx from "./result/resultContent";
-import ResultVideoJsx from "./result/resultVideo";
+import ResultContentJsx from "./resultContent";
+import ResultVideoJsx from "./result";
 import { useVideoQuery } from "libs/hooks";
 import { videoQuery } from "libs/api/video-api";
 import { useParamsContext } from "libs/context/paramsProvider";
+import { Spin } from "antd";
 
 export default function ResultJsx() {
   const { params } = useParamsContext();
@@ -12,10 +13,13 @@ export default function ResultJsx() {
   return (
     <>
       <div className="site-layout-content">
-        <ResultVideoJsx />
+        <ResultVideoJsx urls={data?.urls} urlsChoice={data?.urls_choice} />
       </div>
       <div className="site-layout-content">
-        <ResultContentJsx />
+        <ResultContentJsx
+          defaultVideo={data?.snapshot}
+          aiVideo={data?.snapshots_ai}
+        />
       </div>
     </>
   );

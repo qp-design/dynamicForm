@@ -1,10 +1,6 @@
 import { FieldType } from "libs/types/formField";
 import CodeJsx from "components/code";
-import Button from "antd/lib/button";
-import InputField from "components/dynamic-form/fields/InputField";
-import user from "static/user.png";
 import { FormInstance } from "antd";
-import CheckboxGroupField from "../../../../components/dynamic-form/fields/CheckboxGroupField";
 
 const fieldsForm: Array<FieldType> = [
   {

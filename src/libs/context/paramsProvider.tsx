@@ -1,15 +1,21 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  Dispatch,
+} from "react";
 import { paramsType } from "libs/types/queryParamsType";
 
 const ParamsContext = createContext<{
-  params: paramsType;
-  setParams: <T>(params: T) => void;
+  params: paramsType | null;
+  setParams: Dispatch<paramsType | null>;
 } | null>(null);
 
 ParamsContext.displayName = "paramsContext";
 
 const ParamsContextProvider = ({ children }: { children: ReactNode }) => {
-  const [params, setParams] = useState<any>(null);
+  const [params, setParams] = useState<paramsType | null>(null);
 
   return (
     <ParamsContext.Provider
