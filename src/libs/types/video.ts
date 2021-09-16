@@ -8,11 +8,13 @@ export interface aiProjectType {
   source_ai_url: string;
   position: number;
   data: string;
+  id: number;
 }
 
 export interface aiChoiceType {
   source_url: string;
   position: number;
+  id?: number;
 }
 
 export type videoType = "source_url_e" | "source_ai_url_e";
@@ -29,9 +31,16 @@ export interface videoAuthType {
 }
 
 export interface snapshotsType {
-  exist_tuber: number | string;
-  tab_type: number | string;
-  tuber_num: number | string;
-  tuber_size_x: number | string;
-  tuber_size_y: number | string;
+  exist_tuber: number;
+  tab_type: number;
+  tuber_num: number;
+  tuber_size_x: number;
+  tuber_size_y: number;
+  intimal_thickness: number;
+  patch_echoes: number;
+  patch_size_long: number;
+  patch_size_thick: number;
+  lumen_num: number;
 }
+
+// tab_type: 1

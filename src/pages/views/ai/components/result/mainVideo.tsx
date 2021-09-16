@@ -18,10 +18,14 @@ export default function MainVideo({
   useEffect(
     function () {
       (async () => {
-        const data = await vidPlayAuth({
-          id: selectItem[type || ""],
-        });
-        setVideo(data);
+        try {
+          const data = await vidPlayAuth({
+            id: selectItem[type || ""],
+          });
+          setVideo(data);
+        } catch (e) {
+          setVideo(null);
+        }
       })();
     },
     [type, selectItem]

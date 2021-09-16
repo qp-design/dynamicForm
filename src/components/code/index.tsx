@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { mobile as mobileIo } from "libs/api/user-api";
 import { Button, FormInstance } from "antd";
 import { useMountedRef } from "libs/hooks";
-import { useAuth } from "libs/context/authorityProvider";
+
 const CodeJsx = ({ form }: { form: FormInstance }) => {
-  const { user } = useAuth();
   const [dataTime, setDataTime] = useState(0);
   const [loading, setLoading] = useState(false);
   const isMounted = useMountedRef();
@@ -20,14 +19,14 @@ const CodeJsx = ({ form }: { form: FormInstance }) => {
     }, 1000);
 
     return () => clearTimeout(time);
-  }, [dataTime]);
+  }, [dataTime, isMounted]);
 
   const fetchCode = () => {
     setLoading(true);
     const { getFieldsValue } = form;
     const { mobile } = getFieldsValue();
     mobileIo({ mobile })
-      .then((res) => {
+      .then(() => {
         setDataTime(1 * 60);
       })
       .catch((error) => {})

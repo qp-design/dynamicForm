@@ -1,6 +1,5 @@
 import { Modal } from "antd";
 import { ReactNode } from "react";
-import { useAuth } from "libs/context/authorityProvider";
 
 interface DialogType {
   children: ReactNode;

@@ -2,7 +2,6 @@ import { useCallback, useEffect, useRef } from "react";
 import { useQuery } from "react-query";
 import { queryParamsType } from "../types/queryParamsType";
 import isEmpty from "lodash/isEmpty";
-import { aiProjectType } from "../types/aiType";
 
 export const useBackground = (color: string) => {
   const defaultBg = "#fff";
@@ -34,24 +33,15 @@ export const useSafeImplement = <T>(dispatch: (...args: Array<T>) => void) => {
   );
 };
 
-// 文档：https://react-query.tanstack.com/reference/useQuery#_top
-// (params:paramsType, queryKey:string, api:apiType)
-// export const useProjects = (param?: Partial<Project>) => {
-//   const client = useHttp();
-//
-//   return useQuery<Project[]>(["projects", cleanObject(param)], () =>
-//     client("projects", { data: param })
-//   );
-// };
 export const useVideoQuery = (...[params, queryKey, api]: queryParamsType) => {
   return useQuery(
     [queryKey, params],
     () => {
-      // const controller = new AbortController();
-      // const signal = controller.signal;
-      const promise = api(params);
+      const controller = new AbortController();
+      const signal = controller.signal;
+      const promise = api(params, signal);
       // Cancel the request if React Query calls the `promise.cancel` method
-      // promise.cancel = () => controller.abort();
+      promise.cancel = () => controller.abort();
       return promise;
     },
     {

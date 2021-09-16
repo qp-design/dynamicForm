@@ -12,8 +12,7 @@ interface searchType extends paramsType {
 export default function SearchJsx() {
   const { setParams } = useParamsContext();
   const onConfirm = (...args: submitType<searchType>) => {
-    const [value, suc, error] = args;
-    console.log(value);
+    const [value, suc] = args;
     suc();
     setParams(value);
   };

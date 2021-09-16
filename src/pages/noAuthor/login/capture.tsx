@@ -7,6 +7,7 @@ const Capture = (): JSX.Element => {
   const safeSetUrl = useSafeImplement(setUrl);
   useEffect(() => {
     getImagesUrl();
+    // eslint-disable-next-line
   }, []);
 
   const getImagesUrl = () => {
@@ -17,6 +18,7 @@ const Capture = (): JSX.Element => {
       })
       .catch(() => {});
   };
+
   return (
     <img onClick={getImagesUrl} src={url} alt={url} height={38} width={150} />
   );

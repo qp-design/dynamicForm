@@ -30,9 +30,13 @@ export default function AuthVideo({
   }, [video]);
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", height: "100%" }}>
       {children}
-      <div className="prism-player" id="J_prismPlayer"></div>
+      <div
+        className="prism-player"
+        id="J_prismPlayer"
+        style={{ height: "100%" }}
+      ></div>
     </div>
   );
 }

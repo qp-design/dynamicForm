@@ -1,15 +1,9 @@
-import { Menu, Dropdown, Button, Avatar } from "antd";
+import { Menu, Dropdown, Button } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { Dispatch, memo, useState } from "react";
-// import styled from "styled-components";
 import { modelHandler } from "libs/utils/model";
 import { useAuth } from "libs/context/authorityProvider";
 
-// const UserDiv = styled.div`
-//   float: right;
-//   width: 140px;
-//   height: 31px;
-// `;
 const User = memo(({ setIsShow }: { setIsShow: Dispatch<boolean> }) => {
   const [visible, setVisible] = useState<boolean>(false);
   const { user, loginOutImplement } = useAuth();
@@ -44,7 +38,6 @@ const User = memo(({ setIsShow }: { setIsShow: Dispatch<boolean> }) => {
         visible={visible}
       >
         <Button type={"link"}>
-          {/*<Avatar src={user?.avator} />*/}
           <span style={{ paddingLeft: 10 }}>{user?.name}</span> <DownOutlined />
         </Button>
       </Dropdown>

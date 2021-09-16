@@ -34,11 +34,11 @@ export default function fetchImplement(
           }
           resolve(data.data);
         } else {
-          message.warning(data.msg);
           throw new Error(data.msg);
         }
       })
       .catch((error) => {
+        message.warning(error.message);
         reject(error);
       });
   });

@@ -5,7 +5,6 @@ import Author from "pages/author";
 import { ErrorBoundary } from "components/error/error-boundary";
 import { fullPageErrorFallback } from "components/error/fullPageErrorFallBack";
 import { useBackground } from "../libs/hooks";
-import DialogJsx from "components/dialog";
 
 const App: FC = () => {
   const { user } = useAuth();
@@ -14,7 +13,6 @@ const App: FC = () => {
 
   return (
     <ErrorBoundary fallbackRender={fullPageErrorFallback}>
-      {/*<DialogJsx />*/}
       <Fragment>{user ? <Author /> : <Login />}</Fragment>
     </ErrorBoundary>
   );

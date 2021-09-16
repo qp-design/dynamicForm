@@ -6,7 +6,7 @@ import util from "libs/utils/util";
 
 const ResetPassWordJsx = ({ fields }: { fields: Array<FieldType> }) => {
   const onSubmit = async (...args: submitType<resetForm>) => {
-    const [value, suc, error] = args;
+    const [value, error] = args;
     try {
       await resetPassword<resetForm>(value);
       util.clearStorage("__authInfo__");

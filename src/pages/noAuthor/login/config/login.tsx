@@ -13,7 +13,7 @@ const fieldsForm: Array<FieldType> = [
     label: "",
     rules: [{ required: true, message: "请输入手机号" }],
     extraProps: {
-      prefix: <img src={user} width={20} />,
+      prefix: <img alt={"user"} src={user} width={20} />,
       placeholder: "手机号",
       style: {
         height: 40,
@@ -26,7 +26,7 @@ const fieldsForm: Array<FieldType> = [
     label: "",
     rules: [{ required: true, message: "请输入登陆密码" }],
     extraProps: {
-      prefix: <img src={password} width={20} />,
+      prefix: <img alt={"password"} src={password} width={20} />,
       placeholder: "请输入登陆密码",
       style: {
         height: 40,
