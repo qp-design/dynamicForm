@@ -46,16 +46,16 @@ export const contentVideo = {
       tuberArray.find((item) => item.code === param)?.name,
   },
   tuber_num: {
-    name: "结节大小",
+    name: "结节数目",
     value: (param: number | string) =>
       tuberNum.find((item) => item.code === param)?.name,
   },
   tuber_size_x: {
-    name: "结节大小横",
+    name: "横结节大小",
     value: (param: number | string) => param + "mm",
   },
   tuber_size_y: {
-    name: "结节大小纵",
+    name: "纵结节大小",
     value: (param: number | string) => param + "mm",
   },
   intimal_thickness: {

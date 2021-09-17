@@ -41,8 +41,8 @@ const AuthorityProvider = ({ children }: { children: ReactNode }) => {
     const params = omit(value, "remember");
     try {
       const data = await login<loginForm>(params);
-      setDataMethod(data);
       suc();
+      setDataMethod(data);
     } catch (e) {
       error();
     }

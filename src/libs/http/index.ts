@@ -1,4 +1,5 @@
 import { message } from "antd";
+import util from "../utils/util";
 
 export default function fetchImplement(
   url: RequestInfo,
@@ -8,10 +9,6 @@ export default function fetchImplement(
   return new Promise(function (resolve, reject) {
     fetch(url, config)
       .then(async (response) => {
-        if (response.status === 401) {
-          // 没有登录
-          reject({ message: "请重新登录" });
-        }
         let data;
         switch (responseType) {
           case "blob":
@@ -28,7 +25,12 @@ export default function fetchImplement(
             data = await response.json();
             break;
         }
-        if (data.code === 200) {
+        if (data.code === 401) {
+          message.warning(data.msg, 1).then(() => {
+            util.clearStorage("__authInfo__");
+            window.location.reload();
+          });
+        } else if (data.code === 200) {
           if ([null].includes(data.data)) {
             message.success(data.msg);
           }

@@ -84,7 +84,7 @@ const List = ({
               placement="start"
             >
               <div
-                style={{ position: "relative" }}
+                style={{ position: "relative", marginBottom: 15 }}
                 onClick={switchHandler?.bind(null, item)}
               >
                 <div

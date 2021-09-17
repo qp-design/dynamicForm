@@ -16,13 +16,13 @@ export default function ResultContentJsx({
       }}
     >
       {aiVideo ? (
-        <div>
+        <div style={{ flex: 1 }}>
           <h3>AI 诊断</h3>
           <DesAiInfo aiVideo={aiVideo} />
         </div>
       ) : null}
       {defaultVideo ? (
-        <div>
+        <div style={{ flex: 1 }}>
           <h3>诊断结果</h3>
           <DesAiInfo aiVideo={defaultVideo} />
         </div>
