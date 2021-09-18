@@ -80,7 +80,7 @@ export const contentVideo = {
   },
   patch_echoes: {
     name: "结节大小纵",
-    value: (param: number | string) => param,
+    value: (param: number | string) => param + "mm",
   },
   patch_size_long: {
     name: "斑块大小长",

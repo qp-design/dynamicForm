@@ -18,9 +18,8 @@ const Index: FC = () => {
         <SearchJsx />
         <User setIsShow={setIsShow} />
       </div>
-      <div className="site-layout-space">
-        <ResultJsx />
-      </div>
+      <ResultJsx />
+
       <DialogJsx
         resetProps={{
           title: "修改密码",
