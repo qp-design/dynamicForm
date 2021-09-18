@@ -1,6 +1,6 @@
 {
   "name": "engineer",
-  "proxy": "https://dev-diag.weicha88.com/",
+  "proxy": "https://sit-diag.weicha88.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
