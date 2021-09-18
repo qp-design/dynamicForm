@@ -42,5 +42,3 @@ export interface snapshotsType {
   patch_size_thick: number;
   lumen_num: number;
 }
-
-// tab_type: 1

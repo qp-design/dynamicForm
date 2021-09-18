@@ -1,5 +1,9 @@
 export const dataPosition = [
   {
+    code: -1,
+    name: "—",
+  },
+  {
     code: 1,
     name: "左侧",
   },
@@ -15,6 +19,10 @@ export const dataPosition = [
 
 export const tuberArray = [
   {
+    code: -1,
+    name: "—",
+  },
+  {
     code: 0,
     name: "无",
   },
@@ -24,6 +32,10 @@ export const tuberArray = [
   },
 ];
 export const tuberNum = [
+  {
+    code: -1,
+    name: "—",
+  },
   {
     code: 0,
     name: "单发",
