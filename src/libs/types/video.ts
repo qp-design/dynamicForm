@@ -40,5 +40,5 @@ export interface snapshotsType {
   patch_echoes: number;
   patch_size_long: number;
   patch_size_thick: number;
-  lumen_num: number;
+  luminal_patch: number;
 }
