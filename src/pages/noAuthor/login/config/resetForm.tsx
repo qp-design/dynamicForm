@@ -36,8 +36,6 @@ const fieldsForm: Array<FieldType> = [
     extraProps: {
       placeholder: "请输入验证码",
       addonAfter: (form: FormInstance) => {
-        const { getFieldsValue } = form;
-        console.log(getFieldsValue());
         return <CodeJsx form={form} />;
       },
     },

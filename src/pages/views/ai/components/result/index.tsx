@@ -18,18 +18,18 @@ export default function ResultVideoJsx({
     setVideo(urls?.[0]);
   }, [urls]);
 
-  const switchHandler = (item: aiProjectType) => {
-    const { source_type } = item;
-    if (source_type === 2) {
-      setVideo(item);
-    }
-  };
+  const switchHandler = (item: aiProjectType) => setVideo(item);
 
   return (
     <Row justify="space-between" style={{ width: "100%" }}>
       <Col span={8}>
         {urlsChoice ? (
-          <List title="已选影像图片" urls={urlsChoice || []} />
+          <List
+            selectId={selectVideo?.id}
+            switchHandler={switchHandler}
+            title="已选影像图片"
+            urls={urlsChoice || []}
+          />
         ) : null}
         {urls ? (
           <List

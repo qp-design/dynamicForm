@@ -2,6 +2,7 @@ import AuthVideo from "./authVideo";
 import { useEffect, useState } from "react";
 import { aiProjectType, videoAuthType, videoType } from "libs/types/video";
 import { vidPlayAuth } from "libs/api/video-api";
+import { dataPosition } from "../../config/data";
 
 export default function MainVideo({
   selectItem,
@@ -19,6 +20,10 @@ export default function MainVideo({
     function () {
       (async () => {
         try {
+          if (!selectItem.source_type) {
+            setVideo(null);
+            return;
+          }
           const data = await vidPlayAuth({
             id: selectItem[type || ""],
           });
@@ -32,21 +37,34 @@ export default function MainVideo({
   );
 
   return (
-    <AuthVideo video={video}>
-      <div className="tips">
-        <span
-          className={type === "source_url_e" ? "focus" : ""}
-          onClick={() => setType("source_url_e")}
-        >
-          左侧
-        </span>
-        <span
-          className={type === "source_ai_url_e" ? "focus" : ""}
-          onClick={() => setType("source_ai_url_e")}
-        >
-          AI
-        </span>
-      </div>
-    </AuthVideo>
+    <>
+      {selectItem.source_type ? (
+        <AuthVideo video={video}>
+          <div className="tips">
+            <span
+              className={type === "source_url_e" ? "focus" : ""}
+              onClick={() => setType("source_url_e")}
+            >
+              {
+                dataPosition.find((item) => item.code === selectItem.position)
+                  ?.name
+              }
+            </span>
+            <span
+              className={type === "source_ai_url_e" ? "focus" : ""}
+              onClick={() => setType("source_ai_url_e")}
+            >
+              AI
+            </span>
+          </div>
+        </AuthVideo>
+      ) : (
+        <img
+          width={"100%"}
+          src={selectItem.source_url}
+          alt={String(selectItem.position)}
+        />
+      )}
+    </>
   );
 }

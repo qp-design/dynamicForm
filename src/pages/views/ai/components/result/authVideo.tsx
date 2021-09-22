@@ -10,7 +10,6 @@ export default function AuthVideo({
 }) {
   const [height, setHeight] = useState<string>("0px");
   const measuredRef = useCallback((node) => {
-    console.log(node);
     if (node !== null) {
       const { y } = node.getBoundingClientRect();
       setHeight(`calc(100vh - ${y + 15}px)`);
