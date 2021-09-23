@@ -50,12 +50,16 @@ export default function MainVideo({
                   ?.name
               }
             </span>
-            <span
-              className={type === "source_ai_url_e" ? "focus" : ""}
-              onClick={() => setType("source_ai_url_e")}
-            >
-              AI
-            </span>
+            {selectItem.source_ai_url_e ? (
+              <span
+                className={type === "source_ai_url_e" ? "focus" : ""}
+                onClick={() => setType("source_ai_url_e")}
+              >
+                AI
+              </span>
+            ) : (
+              ""
+            )}
           </div>
         </AuthVideo>
       ) : (

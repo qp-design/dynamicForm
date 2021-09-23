@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient } from "react-query";
 import { queryParamsType } from "../types/queryParamsType";
 import isEmpty from "lodash/isEmpty";
+import { useParamsContext } from "../context/paramsProvider";
 
 export const useBackground = (color: string) => {
   const defaultBg = "#fff";
@@ -34,6 +35,9 @@ export const useSafeImplement = <T>(dispatch: (...args: Array<T>) => void) => {
 };
 
 export const useVideoQuery = (...[params, queryKey, api]: queryParamsType) => {
+  const { setParams } = useParamsContext();
+  const queryClient = useQueryClient();
+
   return useQuery(
     [queryKey, params],
     () => {
@@ -48,7 +52,10 @@ export const useVideoQuery = (...[params, queryKey, api]: queryParamsType) => {
       refetchOnWindowFocus: false,
       retry: false,
       enabled: !isEmpty(params),
-      // keepPreviousData : true,
+      onError: (error) => {
+        setParams(null);
+        queryClient.removeQueries([queryKey, params], { exact: true });
+      },
     }
   );
 };
