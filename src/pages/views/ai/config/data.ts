@@ -53,7 +53,7 @@ const luminalPatchEnum = [
   },
   {
     code: 0,
-    name: "未知",
+    name: "—",
   },
   {
     code: 1,
@@ -76,7 +76,7 @@ const patchEchoesEnum = [
   },
   {
     code: 0,
-    name: "未知",
+    name: "—",
   },
   {
     code: 1,
@@ -96,6 +96,8 @@ const patchEchoesEnum = [
   },
 ];
 
+const transferValueImplement = (param: number) => (param ? param + "mm" : "—");
+
 export const contentVideo = {
   tab_type: {
     name: "部位",
@@ -114,15 +116,15 @@ export const contentVideo = {
   },
   tuber_size_x: {
     name: "横结节大小",
-    value: (param: number) => param + "mm",
+    value: transferValueImplement,
   },
   tuber_size_y: {
     name: "纵结节大小",
-    value: (param: number) => param + "mm",
+    value: transferValueImplement,
   },
   intimal_thickness: {
     name: "斑块内中膜厚度",
-    value: (param: number) => param + "mm",
+    value: transferValueImplement,
   },
   luminal_patch: {
     name: "管腔斑块",
@@ -136,10 +138,10 @@ export const contentVideo = {
   },
   patch_size_long: {
     name: "斑块大小长",
-    value: (param: number) => param + "mm",
+    value: transferValueImplement,
   },
   patch_size_thick: {
     name: "斑块大小厚",
-    value: (param: number) => param + "mm",
+    value: transferValueImplement,
   },
 } as const;
