@@ -1,12 +1,6 @@
 import React from "react";
 import Input from "antd/lib/input";
-import { FormInstance } from "antd";
 
-export default function TextAreaField({
-  form,
-  ...extraProps
-}: {
-  form: FormInstance;
-}) {
+export default function TextAreaField({ ...extraProps }) {
   return <Input.TextArea {...extraProps} />;
 }

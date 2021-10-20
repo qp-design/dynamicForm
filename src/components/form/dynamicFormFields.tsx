@@ -25,31 +25,36 @@ const dynamicFormFields = (fields: Array<FieldType>, form: FormInstance) => {
   return fields.map(
     ({
       name,
-      label,
       type,
-      readOnly,
-      rules,
+      calIsVisible = () => true,
       extraProps,
+      prefixIcon,
+      suffixIcon,
       ...rest
     }: FieldType) => {
       const FormItem = Form.Item;
-
       const formItemProps: { [k: string]: unknown } = {
-        label,
         name,
         type,
-        readOnly,
-        rules,
         valuePropName: type === "checkbox" ? "checked" : "value",
         ...rest,
       };
 
       const FieldComponent = get(FieldTypeComponent, type, InputField);
-
       return (
-        <FormItem key={name} {...formItemProps}>
-          <FieldComponent {...extraProps} form={form} />
-        </FormItem>
+        <Form.Item shouldUpdate key={name.toString()} noStyle>
+          {({ getFieldValue }) =>
+            calIsVisible(getFieldValue) ? (
+              <>
+                {prefixIcon}
+                <FormItem key={name.toString()} {...formItemProps}>
+                  <FieldComponent {...extraProps} form={form} />
+                </FormItem>
+                {suffixIcon}
+              </>
+            ) : null
+          }
+        </Form.Item>
       );
     }
   );

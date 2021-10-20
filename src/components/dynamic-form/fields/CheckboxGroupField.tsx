@@ -1,10 +1,5 @@
-import { Checkbox, FormInstance } from "antd";
+import { Checkbox } from "antd";
 
-export default function CheckboxGroupField({
-  form,
-  ...extraProps
-}: {
-  form?: FormInstance;
-}) {
+export default function CheckboxGroupField({ ...extraProps }) {
   return <Checkbox.Group {...extraProps} />;
 }

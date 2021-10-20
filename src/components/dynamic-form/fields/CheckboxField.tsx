@@ -2,12 +2,10 @@ import Checkbox from "antd/lib/checkbox";
 import { FormInstance } from "antd";
 
 export default function CheckboxField({
-  form,
-  lable,
+  label,
   ...extraProps
 }: {
-  form: FormInstance;
-  lable: string;
+  label: string;
 }) {
-  return <Checkbox {...extraProps}>{lable}</Checkbox>;
+  return <Checkbox {...extraProps}>{label}</Checkbox>;
 }
