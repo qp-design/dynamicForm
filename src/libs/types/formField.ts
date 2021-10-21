@@ -8,27 +8,28 @@ type formType =
   | "file"
   | "select"
   | "checkboxGroup"
-  | "slot";
+  | "complex";
 
 type callResolver = (msg?: string) => void;
 export type submitType<T = any> = [T, callResolver, callResolver];
 
+type NamePath = string | number | (string | number)[];
+
 export interface FieldType {
-  name: string | Array<string>;
+  name: string | number | (string | number)[];
   noStyle?: boolean;
   colon?: boolean;
   type: formType;
   prefixIcon?: any;
   suffixIcon?: any;
   label?: string;
-  hidden?: boolean;
   shouldUpdate?: boolean;
-  calIsVisible?: (f: (name: string) => any) => boolean;
+  calIsDisabled?: (f: (name: NamePath) => any) => boolean;
+  calIsVisible?: (f: (name: NamePath) => any) => boolean;
   rules?: Array<
     { required?: boolean; message?: string; pattern?: RegExp } | any
   >;
   initialValue?: string | number | boolean | Array<string | number>;
-  mode?: boolean;
   readOnly?: boolean;
   minLength?: number;
   placeholder?: string;

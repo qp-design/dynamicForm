@@ -3,5 +3,5 @@ export { default as NumberField } from "./NumberField";
 export { default as TextAreaField } from "./TextAreaField";
 export { default as CheckboxField } from "./CheckboxField";
 export { default as CheckboxGroupField } from "./CheckboxGroupField";
-export { default as SlotField } from "./SlotField";
-export { default as DiyRender } from "./DiyRender";
+export { default as ComplexFields } from "./ComplexFields";
+export { default as SelectFields } from "./SelectField";

@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { FieldType, submitType } from "libs/types/formField";
 import dynamicFormFields from "./dynamicFormFields";
 import { FormProps } from "antd/lib/form/Form";
-import { ColProps } from "antd/lib/grid";
 import _ from "lodash";
 
 interface Props extends FormProps {
@@ -11,8 +10,6 @@ interface Props extends FormProps {
   initialValues?: { [v: string]: unknown };
   onSubmit: (...args: submitType) => void;
   fields: Array<FieldType>;
-  wrapperCol?: ColProps;
-  labelCol?: ColProps;
 }
 
 const DynamicForm = ({
@@ -119,7 +116,7 @@ const DynamicForm = ({
       name="basic"
       onValuesChange={onValuesChange}
     >
-      {dynamicFormFields(fields, form)}
+      {dynamicFormFields(fields)}
       <Form.Item label=" " colon={false}>
         <>
           {saveText && (

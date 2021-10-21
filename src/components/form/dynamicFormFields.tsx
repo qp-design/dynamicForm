@@ -6,11 +6,11 @@ import {
   InputField,
   CheckboxField,
   CheckboxGroupField,
-  SlotField,
+  ComplexFields,
+  SelectFields,
 } from "components/dynamic-form/fields";
 import { Form } from "antd";
 import get from "lodash/get";
-import { FormInstance } from "antd/lib/form/hooks/useForm";
 
 const FieldTypeComponent = {
   number: NumberField,
@@ -18,37 +18,50 @@ const FieldTypeComponent = {
   text: InputField,
   checkbox: CheckboxField,
   checkboxGroup: CheckboxGroupField,
-  slot: SlotField,
+  complex: ComplexFields,
+  select: SelectFields,
 };
 
-const dynamicFormFields = (fields: Array<FieldType>, form: FormInstance) => {
+const dynamicFormFields = (fields: Array<FieldType>) => {
   return fields.map(
-    ({
-      name,
-      type,
-      calIsVisible = () => true,
-      extraProps,
-      prefixIcon,
-      suffixIcon,
-      ...rest
-    }: FieldType) => {
+    (
+      {
+        name,
+        type,
+        extraProps,
+        prefixIcon,
+        suffixIcon,
+        calIsVisible = () => true,
+        calIsDisabled = () => false,
+        ...rest
+      }: FieldType,
+      idx: number
+    ) => {
       const FormItem = Form.Item;
       const formItemProps: { [k: string]: unknown } = {
-        name,
         type,
         valuePropName: type === "checkbox" ? "checked" : "value",
         ...rest,
       };
 
+      const isNeedName = formItemProps.noStyle
+        ? {}
+        : {
+            name: name || idx,
+          };
+
       const FieldComponent = get(FieldTypeComponent, type, InputField);
       return (
-        <Form.Item shouldUpdate key={name.toString()} noStyle>
+        <Form.Item shouldUpdate key={(name || idx).toString()} noStyle>
           {({ getFieldValue }) =>
             calIsVisible(getFieldValue) ? (
               <>
                 {prefixIcon}
-                <FormItem key={name.toString()} {...formItemProps}>
-                  <FieldComponent {...extraProps} form={form} />
+                <FormItem {...formItemProps} {...isNeedName}>
+                  <FieldComponent
+                    {...extraProps}
+                    disabled={calIsDisabled(getFieldValue)}
+                  />
                 </FormItem>
                 {suffixIcon}
               </>

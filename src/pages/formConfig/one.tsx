@@ -1,6 +1,5 @@
 import { FieldType } from "libs/types/formField";
-import { FormInstance, Form } from "antd";
-import dynamicFormFields from "../../components/form/dynamicFormFields";
+import { FormInstance } from "antd";
 
 const setFieldsImp = (id: string, { setFieldsValue }: FormInstance) => ({
   validator(_: unknown, value: Boolean) {
@@ -15,17 +14,13 @@ const InnerForm: Array<FieldType> = [
       display: "inline-block",
       width: 200,
     },
-    name: "tet12",
+    name: ["oneField", "tet12"],
     type: "text",
-    // prefixIcon: ' ✖ ️',
     rules: [{ required: true, message: "请输入名称3" }],
     extraProps: {
       prefix: "厚",
       suffix: "mm",
       placeholder: "请输入名称3",
-      style: {
-        // width: 'calc(30% - 8px)',
-      },
     },
   },
   {
@@ -33,7 +28,7 @@ const InnerForm: Array<FieldType> = [
       display: "inline-block",
       width: 200,
     },
-    name: "tet",
+    name: ["oneField", "tet"],
     type: "text",
     prefixIcon: " ✖ ️",
     rules: [{ required: true, message: "请输入名称3" }],
@@ -47,6 +42,41 @@ const InnerForm: Array<FieldType> = [
     },
   },
 ];
+
+const InnerFormTwo: Array<FieldType> = [
+  {
+    style: {
+      display: "inline-block",
+      width: 60,
+    },
+    name: ["twoField", "checkOne"],
+    type: "checkbox",
+    rules: [{ required: true, message: "请输入名称3" }],
+    extraProps: {
+      label: "魔术",
+      prefix: "厚",
+      suffix: "mm",
+      placeholder: "请输入名称3",
+    },
+  },
+  {
+    style: {
+      display: "inline-block",
+      width: 200,
+    },
+    name: ["twoField", "checkTwo"],
+    type: "text",
+    calIsDisabled: (getFieldValue) => !getFieldValue(["twoField", "checkOne"]),
+    rules: [{ required: true, message: "请输入名称3" }],
+    extraProps: {
+      disabled: true,
+      prefix: "厚",
+      suffix: "mm",
+      placeholder: "请输入名称3",
+    },
+  },
+];
+
 const fieldsForm: Array<FieldType> = [
   {
     colon: false,
@@ -65,36 +95,25 @@ const fieldsForm: Array<FieldType> = [
     },
   },
   {
-    name: "one",
-    type: "text",
-    label: "名称1",
-    rules: [{ required: true, message: "请输入名称1" }],
+    noStyle: true,
+    name: "",
+    type: "complex",
     extraProps: {
-      placeholder: "请输入名称1",
-    },
-  },
-  {
-    name: "two",
-    type: "text",
-    label: "名称2",
-    rules: [{ required: true, message: "请输入名称2" }],
-    extraProps: {
-      placeholder: "请输入名称2",
+      innerForm: InnerForm,
+      label: "结节大小",
+      labelCol: { span: 8 },
+      required: true,
     },
   },
   {
     noStyle: true,
-    name: "te",
-    type: "slot",
+    name: "",
+    type: "complex",
     extraProps: {
-      diyRender: (form: FormInstance) => (
-        <Form.Item label="结节大小" labelCol={{ span: 8 }} required>
-          {dynamicFormFields(InnerForm, form)}
-        </Form.Item>
-      ),
-      prefix: "大着长",
-      suffix: "mm",
-      placeholder: "请输入名称3",
+      innerForm: InnerFormTwo,
+      label: "是否禁用",
+      labelCol: { span: 8 },
+      required: true,
     },
   },
   {
@@ -148,36 +167,31 @@ const fieldsForm: Array<FieldType> = [
     },
   },
   {
-    noStyle: true,
-    name: ["twoOne", "name"],
-    type: "checkbox",
-    label: " ",
-    extraProps: {
-      label: "颈动脉",
-      style: {
-        paddingLeft: "33%",
-      },
-    },
-  },
-  {
-    noStyle: true,
-    name: ["twoOne", "jack"],
-    type: "text",
-    label: "",
+    name: "selectName",
+    type: "select",
+    label: "select名称",
     rules: [{ required: true, message: "请输入名称4" }],
     extraProps: {
       placeholder: "请输入名称3",
-      style: {
-        width: "calc(50% - 8px)",
-        display: "inline-block",
-      },
+      options: [
+        {
+          label: "选项1",
+          value: 1,
+        },
+        {
+          label: "选项2",
+          value: 2,
+        },
+      ],
     },
   },
 ];
 
-export default {
+const config = {
   saveText: "下一步",
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
   fields: fieldsForm,
 };
+
+export default config;
