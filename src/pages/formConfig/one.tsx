@@ -188,6 +188,7 @@ const fieldsForm: Array<FieldType> = [
         {
           label: "选项1",
           value: 1,
+          disabled: true,
         },
         {
           label: "选项2",

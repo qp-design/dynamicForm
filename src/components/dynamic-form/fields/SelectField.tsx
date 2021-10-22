@@ -27,6 +27,7 @@ const SelectFields = ({
       {options.map((item) => (
         <Option
           key={item[optionsKey]}
+          disabled={Boolean(item.disabled)}
           label={item[optionsName]}
           value={item[optionsKey]}
         >
