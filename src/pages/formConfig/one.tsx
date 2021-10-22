@@ -1,9 +1,10 @@
 import { FieldType } from "libs/types/formField";
 import { FormInstance } from "antd";
 
-const setFieldsImp = (id: string, { setFieldsValue }: FormInstance) => ({
-  validator(_: unknown, value: Boolean) {
-    setFieldsValue({ [id]: value });
+type fucType = (value: unknown) => { [v: string]: unknown };
+const setFieldsImp = (config: fucType, { setFieldsValue }: FormInstance) => ({
+  validator(_: unknown, value: unknown) {
+    setFieldsValue(config(value));
     return Promise.resolve();
   },
 });
@@ -80,16 +81,20 @@ const InnerFormTwo: Array<FieldType> = [
 const fieldsForm: Array<FieldType> = [
   {
     colon: false,
-    name: "isVisible",
+    name: ["complex", "isVisible"],
     type: "checkbox",
     label: " ",
-    rules: [setFieldsImp.bind(null, "test")],
+    rules: [
+      setFieldsImp.bind(null, (value: unknown) => ({
+        test: value,
+      })),
+    ],
     extraProps: {
       label: "未显示",
       placeholder: "请输入名称1",
       config: {
         true: {
-          visible: ["isVisible", "test", "default"],
+          visible: [["complex", "isVisible"], "test", "default"],
         },
       },
     },
@@ -135,13 +140,19 @@ const fieldsForm: Array<FieldType> = [
     name: "test",
     type: "checkbox",
     label: " ",
-    rules: [setFieldsImp.bind(null, "isVisible")],
+    rules: [
+      setFieldsImp.bind(null, (value: unknown) => ({
+        complex: {
+          isVisible: value,
+        },
+      })),
+    ],
     extraProps: {
       label: "正常",
       placeholder: "请输入名称1",
       config: {
         true: {
-          visible: ["isVisible", "test", "default"],
+          visible: [["complex", "isVisible"], "test", "default"],
         },
       },
     },

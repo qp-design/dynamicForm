@@ -62,9 +62,10 @@ const DynamicForm = ({
   ) {
     return fieldsArray.filter((item: FieldType) => {
       return (
-        (!_.isEmpty(showParams) && showParams.includes(item.name.toString())) ||
+        (!_.isEmpty(showParams) &&
+          _.findIndex(showParams, (o) => _.isEqual(o, item.name)) > -1) ||
         (!_.isEmpty(hiddenParams) &&
-          !hiddenParams.includes(item.name.toString())) ||
+          _.findIndex(showParams, (o) => _.isEqual(o, item.name)) < -1) ||
         (_.isEmpty(showParams) && _.isEmpty(hiddenParams))
       );
     });
@@ -76,24 +77,37 @@ const DynamicForm = ({
     resetFieldsConfig(value);
   }
 
-  function resetFieldsConfig(value: { [v: string]: unknown }) {
-    const key = _.keys(value)[0];
-    const idx = _.findIndex(fields, function (o) {
-      return o.name === key;
-    });
+  function fetchKey(params: { [v: string]: any }) {
+    let key = _.keys(params);
+    const value = _.get(params, key, "");
+    if (value instanceof Object) {
+      key.push(...fetchKey(value));
+    }
+    return key;
+  }
+
+  function resetFieldsConfig(params: { [v: string]: any }) {
+    // 获取key
+    const keys = fetchKey(params);
+    const key = keys.length === 1 ? keys[0] : keys;
+
+    // 查找索引
+    const idx = _.findIndex(fields, (o) => _.isEqual(o.name, key));
 
     // empty 位空 说明没有计算项
     const empty = _.get(fields[idx], `extraProps.config`, {});
     if (_.isEmpty(empty)) return;
 
+    const value = _.get(params, key, "");
+
     const visibleArray = _.get(
       fields[idx],
-      `extraProps.config.${value[key]}.visible`,
+      `extraProps.config.${value}.visible`,
       []
     );
     const hiddenArray = _.get(
       fields[idx],
-      `extraProps.config.${value[key]}.hidden`,
+      `extraProps.config.${value}.hidden`,
       []
     );
 
