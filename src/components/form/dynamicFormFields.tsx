@@ -6,6 +6,7 @@ import {
   InputField,
   CheckboxField,
   CheckboxGroupField,
+  RadioGroupField,
   ComplexFields,
   SelectFields,
 } from "components/dynamic-form/fields";
@@ -18,6 +19,7 @@ const FieldTypeComponent = {
   text: InputField,
   checkbox: CheckboxField,
   checkboxGroup: CheckboxGroupField,
+  radioGroup: RadioGroupField,
   complex: ComplexFields,
   select: SelectFields,
 };

@@ -8,6 +8,7 @@ type formType =
   | "file"
   | "select"
   | "checkboxGroup"
+  | "radioGroup"
   | "complex";
 
 type callResolver = (msg?: string) => void;
