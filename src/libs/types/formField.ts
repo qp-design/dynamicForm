@@ -13,7 +13,7 @@ type formType =
 type callResolver = (msg?: string) => void;
 export type submitType<T = any> = [T, callResolver, callResolver];
 
-type NamePath = string | number | (string | number)[];
+export type NamePath = string | number | (string | number)[];
 
 export interface FieldType {
   name: string | number | (string | number)[];

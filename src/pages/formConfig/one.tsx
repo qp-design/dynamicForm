@@ -55,8 +55,6 @@ const InnerFormTwo: Array<FieldType> = [
     rules: [{ required: true, message: "请输入名称3" }],
     extraProps: {
       label: "魔术",
-      prefix: "厚",
-      suffix: "mm",
       placeholder: "请输入名称3",
     },
   },
@@ -68,7 +66,7 @@ const InnerFormTwo: Array<FieldType> = [
     name: ["twoField", "checkTwo"],
     type: "text",
     calIsDisabled: (getFieldValue) => !getFieldValue(["twoField", "checkOne"]),
-    rules: [{ required: true, message: "请输入名称3" }],
+    rules: [{ required: false, message: "请输入名称3" }],
     extraProps: {
       disabled: true,
       prefix: "厚",
@@ -85,6 +83,10 @@ const fieldsForm: Array<FieldType> = [
     type: "checkbox",
     label: " ",
     rules: [
+      ({ getFieldValue }: FormInstance) => ({
+        required: getFieldValue(["complex", "isVisible"]),
+        message: "请输入名称3",
+      }),
       setFieldsImp.bind(null, (value: unknown) => ({
         test: value,
       })),
