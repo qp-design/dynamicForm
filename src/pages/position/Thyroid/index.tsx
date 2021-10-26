@@ -1,7 +1,7 @@
 import { FunctionComponent } from "react";
 import { Tabs, Form, Button } from "antd";
 import DynamicForm from "components/form";
-import { left, right, isthmus } from "pages/formConfig/thyroid";
+import { left, right, isthmus, csts } from "pages/formConfig/thyroid";
 import { submitType } from "../../../libs/types/formField";
 import styles from "./index.module.less";
 const { TabPane } = Tabs;
@@ -12,6 +12,7 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
   const [formLeft] = Form.useForm();
   const [formRight] = Form.useForm();
   const [formIsthmus] = Form.useForm();
+  const [formCSTS] = Form.useForm();
 
   function onFormLeftConfirm(...args: submitType) {
     const [value, suc, error] = args;
@@ -29,6 +30,12 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
     suc();
   }
 
+  function onFormCSTSConfirm(...args: submitType) {
+    const [value, suc, error] = args;
+    console.log(value, suc, error);
+    suc();
+  }
+
   const extraOperations = <Button type="primary">预览报告</Button>;
 
   // 一级tab配置
@@ -41,6 +48,9 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
     {
       key: "csts",
       name: "超声提示",
+      render: (): React.ReactNode => (
+        <DynamicForm {...csts} onSubmit={onFormCSTSConfirm} form={formCSTS} />
+      ),
     },
     {
       key: "jkjy",

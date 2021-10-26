@@ -97,7 +97,7 @@ const fieldsForm: Array<FieldType> = [
   },
   {
     style: {
-      marginBottom: -24,
+      // marginBottom: -24,
     },
     name: "",
     type: "complex",
@@ -141,6 +141,14 @@ const fieldsForm: Array<FieldType> = [
     rules: [{ required: true, message: "请输入结节钙化" }],
     extraProps: {
       options: tuberCalcification,
+    },
+  },
+  {
+    name: ["remark"],
+    type: "textarea",
+    label: "左右侧及峡部其他备注",
+    extraProps: {
+      placeholder: "可输入其他描述内容",
     },
   },
 ];

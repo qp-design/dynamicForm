@@ -2,9 +2,8 @@
 const soundThyNormal: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "h_51",
+    value: "51",
     txt: "左侧甲状腺超声检查未见明显异常",
-    key: "h",
   },
   {
     label: "右侧",
