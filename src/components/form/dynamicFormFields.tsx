@@ -6,8 +6,9 @@ import {
   InputField,
   CheckboxField,
   CheckboxGroupField,
-  ComplexFields,
-  SelectFields,
+  ComplexField,
+  SelectField,
+  RadioGroupField,
 } from "components/dynamic-form/fields";
 import { Form } from "antd";
 import get from "lodash/get";
@@ -18,8 +19,9 @@ const FieldTypeComponent = {
   text: InputField,
   checkbox: CheckboxField,
   checkboxGroup: CheckboxGroupField,
-  complex: ComplexFields,
-  select: SelectFields,
+  complex: ComplexField,
+  select: SelectField,
+  radioGroup: RadioGroupField,
 };
 
 const dynamicFormFields = (fields: Array<FieldType>) => {

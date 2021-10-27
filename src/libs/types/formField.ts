@@ -7,6 +7,7 @@ type formType =
   | "checkbox"
   | "file"
   | "select"
+  | "radioGroup"
   | "checkboxGroup"
   | "complex";
 

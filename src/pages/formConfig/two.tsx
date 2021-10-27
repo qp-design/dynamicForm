@@ -1,57 +1,20 @@
 import { FieldType, NamePath } from "libs/types/formField";
 interface innerConfigType {
-  namePath: NamePath;
+  name: NamePath;
   [v: string]: unknown;
 }
-const impConfig = (params: Array<innerConfigType>): Array<FieldType> =>
-  params.map(({ namePath }: { namePath: NamePath }) => ({
-    style: {
-      display: "inline-block",
-      width: "45%",
-    },
-    name: namePath,
-    type: "text",
-    // rules: [{ required: true, message: "请输入名称3" }],
-    extraProps: {
-      prefix: "厚",
-      suffix: "mm",
-      placeholder: "请输入名称3",
-    },
-  }));
-// const InnerForm: Array<FieldType> = [
-//   {
-//     style: {
-//       display: "inline-block",
-//       width: 200,
-//     },
-//     name: ["user", 2, "users", "name"],
-//     type: "text",
-//     // rules: [{ required: true, message: "请输入名称3" }],
-//     extraProps: {
-//       prefix: "厚",
-//       suffix: "mm",
-//       placeholder: "请输入名称3",
-//     },
-//   },
-//   {
-//     style: {
-//       display: "inline-block",
-//       width: 200,
-//     },
-//     name: ["user", 2, "users", "age"],
-//     type: "text",
-//     // rules: [{ required: true, message: "请输入名称3" }],
-//     extraProps: {
-//       prefix: "厚",
-//       suffix: "mm",
-//       placeholder: "请输入名称3",
-//       style: {
-//         // width: 'calc(30% - 8px)',
-//       },
-//     },
-//   },
-// ];
 
+const formLineConfig = (params: Array<innerConfigType>): Array<FieldType> => [
+  {
+    ...params[0],
+    type: "checkbox",
+  },
+  {
+    ...params[1],
+    type: "text",
+    calIsDisabled: (getFieldValue) => !getFieldValue(params[0].name),
+  },
+];
 const fieldsForm: Array<FieldType> = [
   {
     label: "结节大小",
@@ -59,51 +22,44 @@ const fieldsForm: Array<FieldType> = [
     rules: [{ required: true, message: "xxxxxxxx" }],
     type: "complex",
     extraProps: {
-      innerForm: impConfig([
-        {
-          namePath: ["user", 0, "users", "name"],
-        },
-        {
-          namePath: ["user", 0, "users", "age"],
-        },
-        {
-          namePath: ["user", 1, "users", "name"],
-        },
-        {
-          namePath: ["user", 1, "users", "age"],
-        },
-      ]),
+      innerForm: [
+        ...formLineConfig([
+          {
+            style: {
+              display: "inline-block",
+              width: 40,
+            },
+            name: ["user", 0, "one", "name"],
+            type: "checkbox",
+          },
+          {
+            style: {
+              display: "inline-block",
+              width: "90%",
+            },
+            name: ["user", 0, "one", "des"],
+          },
+        ]),
+        ...formLineConfig([
+          {
+            style: {
+              display: "inline-block",
+              width: 40,
+            },
+            name: ["user", 1, "one", "name"],
+            type: "checkbox",
+          },
+          {
+            style: {
+              display: "inline-block",
+              width: "90%",
+            },
+            name: ["user", 1, "one", "des"],
+          },
+        ]),
+      ],
     },
   },
-  // {
-  //   noStyle: true,
-  //   name: "",
-  //   type: "complex",
-  //   extraProps: {
-  //     innerForm: impConfig([
-  //       {
-  //         namePath: ["user", 1, "users", "name"],
-  //       },
-  //       {
-  //         namePath: ["user", 1, "users", "age"],
-  //       },
-  //     ]),
-  //     label: "结节大小",
-  //     labelCol: { span: 8 },
-  //     required: true,
-  //   },
-  // },
-  // {
-  //   noStyle: true,
-  //   name: "",
-  //   type: "complex",
-  //   extraProps: {
-  //     innerForm: InnerForm,
-  //     label: "结节大小",
-  //     labelCol: { span: 8 },
-  //     required: true,
-  //   },
-  // },
 ];
 
 const config = {
