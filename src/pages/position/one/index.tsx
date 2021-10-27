@@ -12,6 +12,6 @@ const OneJsx: FC = () => {
     suc();
   }
 
-  return <DynamicForm {...one} onSubmit={onConfirm} />;
+  return <></>;
 };
 export default OneJsx;

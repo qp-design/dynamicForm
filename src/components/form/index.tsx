@@ -2,14 +2,15 @@ import { Form, Button, message } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
 import { FieldType, submitType } from "libs/types/formField";
 import dynamicFormFields from "./dynamicFormFields";
-import { FormProps } from "antd/lib/form/Form";
+import { FormInstance, FormProps } from "antd/lib/form/Form";
 import _ from "lodash";
 
 interface Props extends FormProps {
   saveText?: string;
   initialValues?: { [v: string]: unknown };
-  onSubmit: (...args: submitType) => void;
+  onSubmit?: (...args: submitType) => void;
   fields: Array<FieldType>;
+  form: FormInstance;
 }
 
 const DynamicForm = ({
@@ -18,10 +19,11 @@ const DynamicForm = ({
   wrapperCol = {},
   labelCol = {},
   initialValues,
-  onSubmit,
+  onSubmit = () => {},
   fields: defaultFields,
+  form,
 }: Props) => {
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
   const [fields, setFormFields] = useState<Array<FieldType>>([]);
   const [loading, setIsSubmitting] = useState<boolean>(false);
 
@@ -131,15 +133,15 @@ const DynamicForm = ({
       onValuesChange={onValuesChange}
     >
       {dynamicFormFields(fields)}
-      <Form.Item label=" " colon={false}>
-        <>
-          {saveText && (
+      {saveText && (
+        <Form.Item label=" " colon={false}>
+          <>
             <Button loading={loading} type="primary" htmlType="submit">
               {saveText}
             </Button>
-          )}
-        </>
-      </Form.Item>
+          </>
+        </Form.Item>
+      )}
     </Form>
   );
 };

@@ -2,15 +2,6 @@ import { FieldType } from "libs/types/formField";
 import { soundThyNormal } from "constant/selectOptions";
 import { FormInstance } from "antd";
 
-type fucType = (value: unknown) => { [v: string]: unknown };
-const setFieldsImp = (config: fucType, { setFieldsValue }: FormInstance) => ({
-  validator(_: unknown, value: unknown) {
-    setFieldsValue(config(value));
-    // debugger
-    return Promise.reject();
-  },
-});
-
 const InnerForm: Array<FieldType> = [
   {
     style: {

@@ -1,7 +1,7 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { Tabs, Form, Button } from "antd";
 import DynamicForm from "components/form";
-import { left, right, isthmus, csts } from "pages/formConfig/thyroid";
+import { left, right, isthmus, remark, csts } from "pages/formConfig/thyroid";
 import { submitType } from "../../../libs/types/formField";
 import styles from "./index.module.less";
 const { TabPane } = Tabs;
@@ -12,31 +12,50 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
   const [formLeft] = Form.useForm();
   const [formRight] = Form.useForm();
   const [formIsthmus] = Form.useForm();
+  const [formRemark] = Form.useForm();
   const [formCSTS] = Form.useForm();
 
-  function onFormLeftConfirm(...args: submitType) {
-    const [value, suc, error] = args;
-    console.log(value, suc, error);
-    suc();
-  }
-  function onFormRightConfirm(...args: submitType) {
-    const [value, suc, error] = args;
-    console.log(value, suc, error);
-    suc();
-  }
-  function onFormIsthmusConfirm(...args: submitType) {
-    const [value, suc, error] = args;
-    console.log(value, suc, error);
-    suc();
-  }
+  const [firstLevelActiveKey, setFirstLevelActiveKey] = useState("cssj");
+  const [secondLevelActiveKey, setSecondLevelActiveKey] = useState("left");
 
+  async function onFormRemarkConfirm(...args: submitType) {
+    const [value, suc, error] = args;
+    console.log(value, suc, error);
+    validateCSSJFields();
+    suc();
+  }
   function onFormCSTSConfirm(...args: submitType) {
     const [value, suc, error] = args;
     console.log(value, suc, error);
     suc();
   }
 
-  const extraOperations = <Button type="primary">预览报告</Button>;
+  /**
+   * 超声所见校验器
+   */
+  const validateCSSJFields = async () => {
+    try {
+      await formLeft.validateFields();
+      setSecondLevelActiveKey("right");
+      await formRight.validateFields();
+      setSecondLevelActiveKey("isthmus");
+      await formIsthmus.validateFields();
+      setFirstLevelActiveKey("csts");
+    } catch (error) {}
+  };
+
+  /**
+   * 预览报告
+   */
+  const previewReport = () => {
+    // validateCSSJFields()
+  };
+
+  const extraOperations = (
+    <Button type="primary" onClick={previewReport}>
+      预览报告
+    </Button>
+  );
 
   // 一级tab配置
   const firstTabs = [
@@ -67,30 +86,20 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
     {
       key: "left",
       name: "左侧",
-      render: (): React.ReactNode => (
-        <DynamicForm {...left} onSubmit={onFormLeftConfirm} form={formLeft} />
-      ),
+      render: (): React.ReactNode => <DynamicForm {...left} form={formLeft} />,
     },
     {
       key: "right",
       name: "右侧",
       render: (): React.ReactNode => (
-        <DynamicForm
-          {...right}
-          onSubmit={onFormRightConfirm}
-          form={formRight}
-        />
+        <DynamicForm {...right} form={formRight} />
       ),
     },
     {
       key: "isthmus",
       name: "峡部",
       render: (): React.ReactNode => (
-        <DynamicForm
-          {...isthmus}
-          onSubmit={onFormIsthmusConfirm}
-          form={formIsthmus}
-        />
+        <DynamicForm {...isthmus} form={formIsthmus} />
       ),
     },
   ];
@@ -98,27 +107,41 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
   /**
    * 渲染tab
    * @param tabs tab配置文件
-   * @param extraOperations 右上角按钮
+   * @param isFirstLevel 是否是第一级tab
    * @returns
    */
   const renderTab = (
     tabs: Array<{ name: string; key: string; render?: () => React.ReactNode }>,
-    extraOperations?: React.ReactNode
+    isFirstLevel?: boolean
   ): React.ReactNode => (
-    <Tabs tabBarExtraContent={extraOperations} size="large">
-      {tabs.map((tab) => (
-        <TabPane tab={tab.name} key={tab.key} forceRender>
-          {tab.render && tab.render()}
-        </TabPane>
-      ))}
-    </Tabs>
+    <>
+      <Tabs
+        onChange={
+          isFirstLevel
+            ? (activeKey) => setFirstLevelActiveKey(activeKey)
+            : (activeKey) => setSecondLevelActiveKey(activeKey)
+        }
+        activeKey={isFirstLevel ? firstLevelActiveKey : secondLevelActiveKey}
+        tabBarExtraContent={isFirstLevel && extraOperations}
+        size="large"
+      >
+        {tabs.map((tab) => (
+          <TabPane tab={tab.name} key={tab.key} forceRender>
+            {tab.render && tab.render()}
+          </TabPane>
+        ))}
+      </Tabs>
+      {isFirstLevel && firstLevelActiveKey === "cssj" && (
+        <DynamicForm
+          {...remark}
+          onSubmit={onFormRemarkConfirm}
+          form={formRemark}
+        />
+      )}
+    </>
   );
 
-  return (
-    <div className={styles.container}>
-      {renderTab(firstTabs, extraOperations)}
-    </div>
-  );
+  return <div className={styles.container}>{renderTab(firstTabs, true)}</div>;
 };
 
 export default Thyroid;
