@@ -48,7 +48,7 @@ const InnerFormTwo: Array<FieldType> = [
   {
     style: {
       display: "inline-block",
-      width: 60,
+      width: 100,
     },
     name: ["twoField", "checkOne"],
     type: "checkbox",
@@ -102,25 +102,19 @@ const fieldsForm: Array<FieldType> = [
     },
   },
   {
-    noStyle: true,
     name: "",
+    label: "结节大小",
     type: "complex",
     extraProps: {
       innerForm: InnerForm,
-      label: "结节大小",
-      labelCol: { span: 8 },
-      required: true,
     },
   },
   {
-    noStyle: true,
-    name: "",
+    name: "twoField",
+    label: "是否禁用",
     type: "complex",
     extraProps: {
       innerForm: InnerFormTwo,
-      label: "是否禁用",
-      labelCol: { span: 8 },
-      required: true,
     },
   },
   {

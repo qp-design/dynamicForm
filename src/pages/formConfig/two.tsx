@@ -7,55 +7,56 @@ const impConfig = (params: Array<innerConfigType>): Array<FieldType> =>
   params.map(({ namePath }: { namePath: NamePath }) => ({
     style: {
       display: "inline-block",
-      width: 200,
+      width: "45%",
     },
     name: namePath,
     type: "text",
-    rules: [{ required: true, message: "请输入名称3" }],
+    // rules: [{ required: true, message: "请输入名称3" }],
     extraProps: {
       prefix: "厚",
       suffix: "mm",
       placeholder: "请输入名称3",
     },
   }));
-const InnerForm: Array<FieldType> = [
-  {
-    style: {
-      display: "inline-block",
-      width: 200,
-    },
-    name: ["user", 2, "users", "name"],
-    type: "text",
-    rules: [{ required: true, message: "请输入名称3" }],
-    extraProps: {
-      prefix: "厚",
-      suffix: "mm",
-      placeholder: "请输入名称3",
-    },
-  },
-  {
-    style: {
-      display: "inline-block",
-      width: 200,
-    },
-    name: ["user", 2, "users", "age"],
-    type: "text",
-    rules: [{ required: true, message: "请输入名称3" }],
-    extraProps: {
-      prefix: "厚",
-      suffix: "mm",
-      placeholder: "请输入名称3",
-      style: {
-        // width: 'calc(30% - 8px)',
-      },
-    },
-  },
-];
+// const InnerForm: Array<FieldType> = [
+//   {
+//     style: {
+//       display: "inline-block",
+//       width: 200,
+//     },
+//     name: ["user", 2, "users", "name"],
+//     type: "text",
+//     // rules: [{ required: true, message: "请输入名称3" }],
+//     extraProps: {
+//       prefix: "厚",
+//       suffix: "mm",
+//       placeholder: "请输入名称3",
+//     },
+//   },
+//   {
+//     style: {
+//       display: "inline-block",
+//       width: 200,
+//     },
+//     name: ["user", 2, "users", "age"],
+//     type: "text",
+//     // rules: [{ required: true, message: "请输入名称3" }],
+//     extraProps: {
+//       prefix: "厚",
+//       suffix: "mm",
+//       placeholder: "请输入名称3",
+//       style: {
+//         // width: 'calc(30% - 8px)',
+//       },
+//     },
+//   },
+// ];
 
 const fieldsForm: Array<FieldType> = [
   {
-    noStyle: true,
-    name: "",
+    label: "结节大小",
+    name: "user",
+    rules: [{ required: true, message: "xxxxxxxx" }],
     type: "complex",
     extraProps: {
       innerForm: impConfig([
@@ -65,18 +66,6 @@ const fieldsForm: Array<FieldType> = [
         {
           namePath: ["user", 0, "users", "age"],
         },
-      ]),
-      label: "结节大小",
-      labelCol: { span: 8 },
-      required: true,
-    },
-  },
-  {
-    noStyle: true,
-    name: "",
-    type: "complex",
-    extraProps: {
-      innerForm: impConfig([
         {
           namePath: ["user", 1, "users", "name"],
         },
@@ -84,22 +73,37 @@ const fieldsForm: Array<FieldType> = [
           namePath: ["user", 1, "users", "age"],
         },
       ]),
-      label: "结节大小",
-      labelCol: { span: 8 },
-      required: true,
     },
   },
-  {
-    noStyle: true,
-    name: "",
-    type: "complex",
-    extraProps: {
-      innerForm: InnerForm,
-      label: "结节大小",
-      labelCol: { span: 8 },
-      required: true,
-    },
-  },
+  // {
+  //   noStyle: true,
+  //   name: "",
+  //   type: "complex",
+  //   extraProps: {
+  //     innerForm: impConfig([
+  //       {
+  //         namePath: ["user", 1, "users", "name"],
+  //       },
+  //       {
+  //         namePath: ["user", 1, "users", "age"],
+  //       },
+  //     ]),
+  //     label: "结节大小",
+  //     labelCol: { span: 8 },
+  //     required: true,
+  //   },
+  // },
+  // {
+  //   noStyle: true,
+  //   name: "",
+  //   type: "complex",
+  //   extraProps: {
+  //     innerForm: InnerForm,
+  //     label: "结节大小",
+  //     labelCol: { span: 8 },
+  //     required: true,
+  //   },
+  // },
 ];
 
 const config = {

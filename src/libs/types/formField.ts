@@ -32,7 +32,6 @@ export interface FieldType {
   initialValue?: string | number | boolean | Array<string | number>;
   readOnly?: boolean;
   minLength?: number;
-  placeholder?: string;
   loading?: boolean;
   extraProps?: { [k: string]: unknown };
   style?: { [k: string]: unknown };

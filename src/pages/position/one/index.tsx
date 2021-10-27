@@ -5,8 +5,8 @@ import { submitType } from "../../../libs/types/formField";
 
 const OneJsx: FC = () => {
   function onConfirm(...args: submitType) {
-    const [value, suc, error] = args;
-    console.log(value, error);
+    const [value, suc] = args;
+    console.log(value);
     suc();
   }
 
