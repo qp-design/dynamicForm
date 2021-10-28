@@ -1,51 +1,110 @@
 import { FieldType } from "libs/types/formField";
-import { soundThyNormal } from "constant/selectOptions";
+import {
+  soundThyNormal,
+  soundThyAndNodule,
+  soundThyNodule,
+  soundThyChange,
+  soundThyBig,
+  soundThyKit,
+} from "constant/selectOptions";
 import { FormInstance } from "antd";
-
-const InnerForm: Array<FieldType> = [
+const innerForm = (
+  value: number,
+  suffixIcon: string,
+  options: any
+): Array<FieldType> => [
   {
-    style: {
-      display: "inline-block",
-    },
-    name: ["checkboxNormal"],
-    type: "checkbox",
-    // rules: [{ required: true, message: "请选择" }],
+    style: { display: "inline-block", width: 100 },
+    name: ["cs_tips", value],
+    type: "select",
+    label: "",
+    calIsDisabled: (getFieldValue) => !getFieldValue("csts")?.includes(value),
+    rules: [
+      (form: FormInstance) => {
+        const isChecked = form.getFieldValue("csts")?.includes(value);
+        // if (!isChecked) {
+        //   form.setFieldsValue({cs_tips: undefined})
+        // }
+        return { required: isChecked, message: "请选择部位" };
+      },
+    ],
+    suffixIcon,
     extraProps: {
-      label: "",
+      options,
     },
   },
+];
+
+const innerFormTextArea = (value: string): Array<FieldType> => [
   {
-    style: {
-      display: "inline-block",
-      width: 120,
-    },
-    name: ["cs_tips"],
-    type: "select",
-    calIsDisabled: (getFieldValue) => !getFieldValue(["checkboxNormal"]),
+    style: { width: 300 },
+    name: "cs_tip_des",
+    type: "textarea",
+    label: "",
+    calIsDisabled: (getFieldValue) => !getFieldValue("csts")?.includes(value),
     rules: [
       (form: FormInstance) => {
         return {
-          required: form.getFieldValue("checkboxNormal"),
-          message: "请选择",
+          required: form.getFieldValue("csts")?.includes(value),
+          message: "请输入其他描述内容",
         };
       },
     ],
     extraProps: {
-      disabled: true,
-      placeholder: "请选择",
-      options: soundThyNormal,
+      placeholder: "可输入其他描述内容",
     },
   },
 ];
 
 const fieldsForm: Array<FieldType> = [
   {
-    name: "",
-    type: "complex",
-    // rules: [{ required: true, message: "请至少勾选一项超声提示" }],
+    name: "csts",
+    type: "checkboxGroup",
+    label: "",
+    rules: [{ required: true, message: "请至少勾选一项超声提示" }],
     extraProps: {
-      innerForm: InnerForm,
-      label: "",
+      direction: "vertical",
+      options: [
+        {
+          label: "",
+          value: 0,
+          suffix: innerForm(0, "甲状腺超声检查未见明显异常", soundThyNormal),
+        },
+        {
+          label: "",
+          value: 1,
+          suffix: innerForm(1, "甲状腺结节", soundThyNodule),
+        },
+        {
+          label: "",
+          value: 2,
+          suffix: innerForm(2, "甲状腺结节伴钙化", soundThyAndNodule),
+        },
+        {
+          label: "",
+          value: 3,
+          suffix: innerForm(
+            3,
+            "甲状腺弥漫性病变，结合甲状腺功能检查",
+            soundThyChange
+          ),
+        },
+        {
+          label: "",
+          value: 4,
+          suffix: innerForm(4, "甲状腺肿大", soundThyBig),
+        },
+        {
+          label: "",
+          value: 5,
+          suffix: innerForm(5, "甲状腺钙化灶", soundThyKit),
+        },
+        {
+          label: "其他",
+          value: "other",
+          suffix: innerFormTextArea("other"),
+        },
+      ],
     },
   },
 ];

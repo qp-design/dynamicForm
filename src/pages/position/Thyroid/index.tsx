@@ -1,8 +1,16 @@
 import { FunctionComponent, useState } from "react";
 import { Tabs, Form, Button } from "antd";
 import DynamicForm from "components/form";
-import { left, right, isthmus, remark, csts } from "pages/formConfig/thyroid";
+import {
+  left,
+  right,
+  isthmus,
+  remark,
+  csts,
+  jkjy,
+} from "pages/formConfig/thyroid";
 import { submitType } from "../../../libs/types/formField";
+import CompDoctorSign from "components/CompDoctorSign";
 import styles from "./index.module.less";
 const { TabPane } = Tabs;
 
@@ -14,6 +22,7 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
   const [formIsthmus] = Form.useForm();
   const [formRemark] = Form.useForm();
   const [formCSTS] = Form.useForm();
+  const [formJKJY] = Form.useForm();
 
   const [firstLevelActiveKey, setFirstLevelActiveKey] = useState("cssj");
   const [secondLevelActiveKey, setSecondLevelActiveKey] = useState("left");
@@ -25,6 +34,12 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
     suc();
   }
   function onFormCSTSConfirm(...args: submitType) {
+    const [value, suc, error] = args;
+    console.log(value, suc, error);
+    suc();
+  }
+
+  function onFormJKJYConfirm(...args: submitType) {
     const [value, suc, error] = args;
     console.log(value, suc, error);
     suc();
@@ -68,16 +83,23 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
       key: "csts",
       name: "超声提示",
       render: (): React.ReactNode => (
+        // <CompCsts form={formCSTS} type="1" />
         <DynamicForm {...csts} onSubmit={onFormCSTSConfirm} form={formCSTS} />
       ),
     },
     {
       key: "jkjy",
       name: "健康建议",
+      render: (): React.ReactNode => (
+        <DynamicForm {...jkjy} onSubmit={onFormJKJYConfirm} form={formJKJY} />
+      ),
     },
     {
       key: "ysqm",
       name: "医生签名",
+      render: (): React.ReactNode => (
+        <CompDoctorSign onSubmit={previewReport} />
+      ),
     },
   ];
 

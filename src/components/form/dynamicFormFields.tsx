@@ -41,16 +41,11 @@ const dynamicFormFields = (fields: Array<FieldType>) => {
     ) => {
       const FormItem = Form.Item;
       const formItemProps: { [k: string]: unknown } = {
+        name,
         type,
         valuePropName: type === "checkbox" ? "checked" : "value",
         ...rest,
       };
-
-      const isNeedName = formItemProps.noStyle
-        ? {}
-        : {
-            name: name || idx,
-          };
 
       const FieldComponent = get(FieldTypeComponent, type, InputField);
       return (
@@ -59,7 +54,7 @@ const dynamicFormFields = (fields: Array<FieldType>) => {
             calIsVisible(getFieldValue) ? (
               <>
                 {prefixIcon}
-                <FormItem {...formItemProps} {...isNeedName}>
+                <FormItem {...formItemProps}>
                   <FieldComponent
                     {...extraProps}
                     disabled={calIsDisabled(getFieldValue)}

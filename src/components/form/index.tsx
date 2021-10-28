@@ -136,7 +136,12 @@ const DynamicForm = ({
       {saveText && (
         <Form.Item label=" " colon={false}>
           <>
-            <Button loading={loading} type="primary" htmlType="submit">
+            <Button
+              size="large"
+              loading={loading}
+              type="primary"
+              htmlType="submit"
+            >
               {saveText}
             </Button>
           </>

@@ -7,77 +7,42 @@ const soundThyNormal: DEFINE.radioListTypes[] = [
   },
   {
     label: "右侧",
-    value: "h_52",
+    value: "52",
     txt: "右侧甲状腺超声检查未见明显异常",
-    key: "h",
   },
   {
     label: "峡部",
-    value: "h_53",
+    value: "53",
     txt: "峡部甲状腺超声检查未见明显异常",
-    key: "h",
   },
   {
     label: "双侧",
-    value: "h_54",
+    value: "54",
     txt: "双侧甲状腺超声检查未见明显异常",
-    key: "h",
   },
 ];
-
-// 甲状腺 结合临床
-// const soundThyClinic: DEFINE.radioListTypes[] = [
-//   {
-//     label: '左侧',
-//     value: 'g_34',
-//     txt: '左侧甲状腺未显示，请结合临床',
-//     key: 'g',
-//   },
-//   {
-//     label: '右侧',
-//     value: 'g_35',
-//     txt: '右侧甲状腺未显示，请结合临床',
-//     key: 'g',
-//   },
-//   {
-//     label: '峡部',
-//     value: 'g_36',
-//     txt: '峡部甲状腺未显示，请结合临床',
-//     key: 'g',
-//   },
-//   {
-//     label: '双侧',
-//     value: 'g_37',
-//     txt: '双侧甲状腺未显示，请结合临床',
-//     key: 'g',
-//   },
-// ];
 
 // 甲状腺 结节伴钙化
 const soundThyAndNodule: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "f_101",
+    value: "101",
     txt: "左侧甲状腺结节伴钙化",
-    key: "f",
   },
   {
     label: "右侧",
-    value: "f_102",
+    value: "102",
     txt: "右侧甲状腺结节伴钙化",
-    key: "f",
   },
   {
     label: "峡部",
-    value: "f_103",
+    value: "103",
     txt: "峡部甲状腺结节伴钙化",
-    key: "f",
   },
   {
     label: "双侧",
-    value: "f_104",
+    value: "104",
     txt: "双侧甲状腺结节伴钙化",
-    key: "f",
   },
 ];
 
@@ -85,27 +50,23 @@ const soundThyAndNodule: DEFINE.radioListTypes[] = [
 const soundThyNodule: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "a_61",
+    value: "61",
     txt: "左侧甲状腺结节",
-    key: "a",
   },
   {
     label: "右侧",
-    value: "a_62",
+    value: "62",
     txt: "右侧甲状腺结节",
-    key: "a",
   },
   {
     label: "峡部",
-    value: "a_63",
+    value: "63",
     txt: "峡部甲状腺结节",
-    key: "a",
   },
   {
     label: "双侧",
-    value: "a_64",
+    value: "64",
     txt: "双侧甲状腺结节",
-    key: "a",
   },
 ];
 
@@ -113,21 +74,18 @@ const soundThyNodule: DEFINE.radioListTypes[] = [
 const soundThyChange: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "b_71",
+    value: "71",
     txt: "左侧甲状腺弥漫性病变，结合甲状腺功能检查",
-    key: "b",
   },
   {
     label: "右侧",
-    value: "b_72",
+    value: "72",
     txt: "右侧甲状腺弥漫性病变，结合甲状腺功能检查",
-    key: "b",
   },
   {
     label: "双侧",
-    value: "b_73",
+    value: "73",
     txt: "双侧甲状腺弥漫性病变，结合甲状腺功能检查",
-    key: "b",
   },
 ];
 
@@ -135,21 +93,18 @@ const soundThyChange: DEFINE.radioListTypes[] = [
 const soundThyBig: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "c_81",
+    value: "81",
     txt: "左侧甲状腺肿大",
-    key: "c",
   },
   {
     label: "右侧",
-    value: "c_82",
+    value: "82",
     txt: "右侧甲状腺肿大",
-    key: "c",
   },
   {
     label: "双侧",
-    value: "c_83",
+    value: "83",
     txt: "双侧甲状腺肿大",
-    key: "c",
   },
 ];
 
@@ -157,21 +112,18 @@ const soundThyBig: DEFINE.radioListTypes[] = [
 const soundThyKit: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "d_91",
+    value: "91",
     txt: "左侧甲状腺钙化灶",
-    key: "d",
   },
   {
     label: "右侧",
-    value: "d_92",
+    value: "92",
     txt: "右侧甲状腺钙化灶",
-    key: "d",
   },
   {
     label: "双侧",
-    value: "d_93",
+    value: "93",
     txt: "双侧甲状腺钙化灶",
-    key: "d",
   },
 ];
 
@@ -179,21 +131,18 @@ const soundThyKit: DEFINE.radioListTypes[] = [
 const soundCarNormal: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "h_61",
+    value: "61",
     txt: "左侧颈动脉超声检查未见明显异常",
-    key: "h",
   },
   {
     label: "右侧",
-    value: "h_62",
+    value: "62",
     txt: "右侧颈动脉超声检查未见明显异常",
-    key: "h",
   },
   {
     label: "双侧",
-    value: "h_63",
+    value: "63",
     txt: "双侧颈动脉超声检查未见明显异常",
-    key: "h",
   },
 ];
 
@@ -201,32 +150,32 @@ const soundCarNormal: DEFINE.radioListTypes[] = [
 // const soundCarIsShow: DEFINE.radioListTypes[] = [
 //   {
 //     label: '左侧',
-//     value: 'f_54',
+//     value: '54',
 //     txt: '左侧颈动脉未显示，请结合临床',
 //   },
 //   {
 //     label: '右侧',
-//     value: 'f_55',
+//     value: '55',
 //     txt: '右侧颈动脉未显示，请结合临床',
 //   },
 //   {
 //     label: '双侧',
-//     value: 'f_56',
+//     value: '56',
 //     txt: '双侧颈动脉未显示，请结合临床',
 //   },
 //   {
 //     label: '左侧窦部',
-//     value: 'f_57',
+//     value: '57',
 //     txt: '左侧窦部颈动脉未显示，请结合临床',
 //   },
 //   {
 //     label: '右侧窦部',
-//     value: 'f_58',
+//     value: '58',
 //     txt: '右侧窦部颈动脉未显示，请结合临床',
 //   },
 //   {
 //     label: '双侧窦部',
-//     value: 'f_59',
+//     value: '59',
 //     txt: '双侧窦部颈动脉未显示，请结合临床',
 //   },
 // ];
@@ -235,32 +184,32 @@ const soundCarNormal: DEFINE.radioListTypes[] = [
 const soundCarFilm: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "a_81",
+    value: "81",
     txt: "左侧颈动脉内中膜增厚风险增加",
   },
   {
     label: "右侧",
-    value: "a_82",
+    value: "82",
     txt: "右侧颈动脉内中膜增厚风险增加",
   },
   {
     label: "双侧",
-    value: "a_83",
+    value: "83",
     txt: "双侧颈动脉内中膜增厚风险增加",
   },
   {
     label: "左侧窦部",
-    value: "a_84",
+    value: "84",
     txt: "左侧窦部颈动脉内中膜增厚风险增加",
   },
   {
     label: "右侧窦部",
-    value: "a_85",
+    value: "85",
     txt: "右侧窦部颈动脉内中膜增厚风险增加",
   },
   {
     label: "双侧窦部",
-    value: "a_86",
+    value: "86",
     txt: "双侧窦部颈动脉内中膜增厚风险增加",
   },
 ];
@@ -269,32 +218,32 @@ const soundCarFilm: DEFINE.radioListTypes[] = [
 const soundCarFilmGred: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "b_91",
+    value: "91",
     txt: "左侧颈动脉内中膜增厚",
   },
   {
     label: "右侧",
-    value: "b_92",
+    value: "92",
     txt: "右侧颈动脉内中膜增厚",
   },
   {
     label: "双侧",
-    value: "b_93",
+    value: "93",
     txt: "双侧颈动脉内中膜增厚",
   },
   {
     label: "左侧窦部",
-    value: "b_94",
+    value: "94",
     txt: "左侧窦部颈动脉内中膜增厚",
   },
   {
     label: "右侧窦部",
-    value: "b_95",
+    value: "95",
     txt: "右侧窦部颈动脉内中膜增厚",
   },
   {
     label: "双侧窦部",
-    value: "b_96",
+    value: "96",
     txt: "双侧窦部颈动脉内中膜增厚",
   },
 ];
@@ -303,32 +252,32 @@ const soundCarFilmGred: DEFINE.radioListTypes[] = [
 const soundCarPlaQue: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "c_101",
+    value: "101",
     txt: "左侧颈动脉可见斑块",
   },
   {
     label: "右侧",
-    value: "c_102",
+    value: "102",
     txt: "右侧颈动脉可见斑块",
   },
   {
     label: "双侧",
-    value: "c_103",
+    value: "103",
     txt: "双侧颈动脉可见斑块",
   },
   {
     label: "左侧窦部",
-    value: "c_104",
+    value: "104",
     txt: "左侧窦部颈动脉可见斑块",
   },
   {
     label: "右侧窦部",
-    value: "c_105",
+    value: "105",
     txt: "右侧窦部颈动脉可见斑块",
   },
   {
     label: "双侧窦部",
-    value: "c_106",
+    value: "106",
     txt: "双侧窦部颈动脉可见斑块",
   },
 ];
@@ -337,17 +286,17 @@ const soundCarPlaQue: DEFINE.radioListTypes[] = [
 const soundCarStenosis: DEFINE.radioListTypes[] = [
   {
     label: "< 50%",
-    value: "d_111",
+    value: "111",
     txt: "颈动脉斑块形成伴局部管腔狭窄，面积狭窄率约 < 50%",
   },
   {
     label: "50%-69%",
-    value: "d_112",
+    value: "112",
     txt: "颈动脉斑块形成伴局部管腔狭窄，面积狭窄率约 50%-69%",
   },
   {
     label: "70%-99%",
-    value: "d_113",
+    value: "113",
     txt: "颈动脉斑块形成伴局部管腔狭窄，面积狭窄率约 70%-99%",
   },
 ];
@@ -356,27 +305,23 @@ const soundCarStenosis: DEFINE.radioListTypes[] = [
 const soundLiverNormal: DEFINE.radioListTypes[] = [
   {
     label: "左叶肝脏",
-    value: "h_11",
+    value: "11",
     txt: "左叶肝脏超声检查未见明显异常",
-    key: "h",
   },
   {
     label: "右叶肝脏",
-    value: "h_12",
+    value: "12",
     txt: "右叶肝脏超声检查未见明显异常",
-    key: "h",
   },
   {
     label: "胆囊",
-    value: "h_13",
+    value: "13",
     txt: "胆囊超声检查未见明显异常",
-    key: "h",
   },
   {
     label: "肝胆",
-    value: "h_14",
+    value: "14",
     txt: "肝胆超声检查未见明显异常",
-    key: "h",
   },
 ];
 
@@ -384,17 +329,17 @@ const soundLiverNormal: DEFINE.radioListTypes[] = [
 const soundLiverCou: DEFINE.radioListTypes[] = [
   {
     label: "轻度",
-    value: "a_16",
+    value: "16",
     txt: "轻度脂肪肝",
   },
   {
     label: "中度",
-    value: "a_17",
+    value: "17",
     txt: "中度脂肪肝",
   },
   {
     label: "重度",
-    value: "a_18",
+    value: "18",
     txt: "重度脂肪肝",
   },
 ];
@@ -403,17 +348,17 @@ const soundLiverCou: DEFINE.radioListTypes[] = [
 const breastNodule: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "a_24",
+    value: "24",
     txt: "左侧乳腺结节",
   },
   {
     label: "右侧",
-    value: "a_25",
+    value: "25",
     txt: "右侧乳腺结节",
   },
   {
     label: "双侧",
-    value: "a_26",
+    value: "26",
     txt: "双侧乳腺结节",
   },
 ];
@@ -422,21 +367,18 @@ const breastNodule: DEFINE.radioListTypes[] = [
 const breastNormal: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "h_21",
+    value: "21",
     txt: "左侧乳腺超声检查未见明显异常",
-    key: "h",
   },
   {
     label: "右侧",
-    value: "h_22",
+    value: "22",
     txt: "右侧乳腺超声检查未见明显异常",
-    key: "h",
   },
   {
     label: "双侧",
-    value: "h_23",
+    value: "23",
     txt: "双侧乳腺超声检查未见明显异常",
-    key: "h",
   },
 ];
 
@@ -444,17 +386,17 @@ const breastNormal: DEFINE.radioListTypes[] = [
 const breastLesion: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "b_27",
+    value: "27",
     txt: "左侧乳腺增生性病变",
   },
   {
     label: "右侧",
-    value: "b_28",
+    value: "28",
     txt: "右侧乳腺增生性病变",
   },
   {
     label: "双侧",
-    value: "b_29",
+    value: "29",
     txt: "双侧乳腺增生性病变",
   },
 ];
@@ -463,17 +405,17 @@ const breastLesion: DEFINE.radioListTypes[] = [
 const breastExpands: DEFINE.radioListTypes[] = [
   {
     label: "左侧",
-    value: "c_30",
+    value: "30",
     txt: "左侧乳腺导管扩张",
   },
   {
     label: "右侧",
-    value: "c_31",
+    value: "31",
     txt: "右侧乳腺导管扩张",
   },
   {
     label: "双侧",
-    value: "c_32",
+    value: "32",
     txt: "双侧乳腺导管扩张",
   },
 ];
