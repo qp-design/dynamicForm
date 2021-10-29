@@ -22,9 +22,6 @@ const innerForm = (
     rules: [
       (form: FormInstance) => {
         const isChecked = form.getFieldValue("csts")?.includes(value);
-        // if (!isChecked) {
-        //   form.setFieldsValue({cs_tips: undefined})
-        // }
         return { required: isChecked, message: "请选择部位" };
       },
     ],
@@ -61,7 +58,19 @@ const fieldsForm: Array<FieldType> = [
     name: "csts",
     type: "checkboxGroup",
     label: "",
-    rules: [{ required: true, message: "请至少勾选一项超声提示" }],
+    rules: [
+      { required: true, message: "请至少勾选一项超声提示" },
+      ({ getFieldsValue, setFieldsValue }: FormInstance) => ({
+        validator(_: unknown, value: any) {
+          const { cs_tips } = getFieldsValue();
+          const params = cs_tips.map((item: string, idx: number) =>
+            value.includes(idx) ? item : undefined
+          );
+          setFieldsValue?.({ cs_tips: params });
+          return Promise.resolve();
+        },
+      }),
+    ],
     extraProps: {
       direction: "vertical",
       options: [
