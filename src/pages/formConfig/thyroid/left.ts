@@ -1,4 +1,5 @@
 import { FieldType } from "libs/types/formField";
+import { FormInstance } from "antd";
 import {
   thyroidSize,
   thyroidEcho,
@@ -19,8 +20,11 @@ const InnerForm: Array<FieldType> = [
     name: ["tabs", "left", "tuber_size_x"],
     type: "number",
     rules: [{ required: true, message: "请输入横值" }],
-    prefixIcon: "大者约横",
-    suffixIcon: "mm",
+    prefixIcon: (getFieldValue) => {
+      const tuberNum = getFieldValue(["tabs", "left", "tuber_num"]);
+      return tuberNum === 0 ? "约横" : "大者约横";
+    },
+    suffixIcon: () => "mm",
     extraProps: {
       min: 0.1,
       precision: 1,
@@ -34,8 +38,8 @@ const InnerForm: Array<FieldType> = [
     name: ["tabs", "left", "tuber_size_y"],
     type: "number",
     rules: [{ required: true, message: "请输入纵值" }],
-    prefixIcon: " * 纵",
-    suffixIcon: "mm",
+    prefixIcon: () => " * 纵",
+    suffixIcon: () => "mm",
     extraProps: {
       min: 0.1,
       precision: 1,
@@ -96,10 +100,7 @@ const fieldsForm: Array<FieldType> = [
     },
   },
   {
-    style: {
-      // marginBottom: -24,
-    },
-    name: "",
+    name: ["tabs", "left"],
     type: "complex",
     extraProps: {
       innerForm: InnerForm,

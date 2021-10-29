@@ -53,14 +53,14 @@ const dynamicFormFields = (fields: Array<FieldType>) => {
           {({ getFieldValue }) =>
             calIsVisible(getFieldValue) ? (
               <>
-                {prefixIcon}
+                {prefixIcon?.(getFieldValue)}
                 <FormItem {...formItemProps}>
                   <FieldComponent
                     {...extraProps}
                     disabled={calIsDisabled(getFieldValue)}
                   />
                 </FormItem>
-                {suffixIcon}
+                {suffixIcon?.(getFieldValue)}
               </>
             ) : null
           }

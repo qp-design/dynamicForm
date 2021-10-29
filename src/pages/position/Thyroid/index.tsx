@@ -30,6 +30,7 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
   async function onFormRemarkConfirm(...args: submitType) {
     const [value, suc, error] = args;
     console.log(value, suc, error);
+    console.log(formLeft.getFieldsValue());
     validateCSSJFields();
     suc();
   }

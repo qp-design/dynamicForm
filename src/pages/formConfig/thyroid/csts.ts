@@ -10,7 +10,7 @@ import {
 import { FormInstance } from "antd";
 const innerForm = (
   value: number,
-  suffixIcon: string,
+  suffixIconValue: string,
   options: any
 ): Array<FieldType> => [
   {
@@ -25,7 +25,7 @@ const innerForm = (
         return { required: isChecked, message: "请选择部位" };
       },
     ],
-    suffixIcon,
+    suffixIcon: () => suffixIconValue,
     extraProps: {
       options,
     },
@@ -61,12 +61,15 @@ const fieldsForm: Array<FieldType> = [
     rules: [
       { required: true, message: "请至少勾选一项超声提示" },
       ({ getFieldsValue, setFieldsValue }: FormInstance) => ({
-        validator(_: unknown, value: any) {
-          const { cs_tips } = getFieldsValue();
+        validator(_: unknown, value: Array<number>) {
+          const { cs_tips, csts } = getFieldsValue();
           const params = cs_tips.map((item: string, idx: number) =>
             value.includes(idx) ? item : undefined
           );
           setFieldsValue?.({ cs_tips: params });
+          if (!csts?.includes("other")) {
+            setFieldsValue?.({ cs_tip_des: undefined });
+          }
           return Promise.resolve();
         },
       }),

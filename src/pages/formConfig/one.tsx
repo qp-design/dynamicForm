@@ -31,7 +31,7 @@ const InnerForm: Array<FieldType> = [
     },
     name: ["oneField", "tet"],
     type: "text",
-    prefixIcon: " ✖ ️",
+    prefixIcon: () => " ✖ ️",
     rules: [{ required: true, message: "请输入名称3" }],
     extraProps: {
       prefix: "厚",

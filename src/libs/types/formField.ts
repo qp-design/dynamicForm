@@ -1,3 +1,5 @@
+import { FormInstance } from "antd";
+
 type formType =
   | "text"
   | "textarea"
@@ -21,8 +23,8 @@ export interface FieldType {
   noStyle?: boolean;
   colon?: boolean;
   type: formType;
-  prefixIcon?: any;
-  suffixIcon?: any;
+  suffixIcon?: (form: any) => {};
+  prefixIcon?: (form: any) => {};
   label?: string;
   shouldUpdate?: boolean;
   calIsDisabled?: (f: (name: NamePath) => any) => boolean;
