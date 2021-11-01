@@ -1,5 +1,6 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import { Tabs, Form, Button } from "antd";
+import _ from "lodash";
 import DynamicForm from "components/form";
 import {
   left,
@@ -37,28 +38,39 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
     console.log("mesFromReact", e?.data);
     const { type, data } = e?.data;
     if (type === "onekeyNormal") {
+      formLeft.resetFields();
+      formRight.resetFields();
+      formIsthmus.resetFields();
+      formRemark.resetFields();
+      formCSTS.resetFields();
+      formJKJY.resetFields();
+
       formLeft.setFieldsValue(data);
       formRight.setFieldsValue(data);
       formIsthmus.setFieldsValue(data);
+      formCSTS.setFieldsValue(data);
+      formJKJY.setFieldsValue(data);
+      setFirstLevelActiveKey("ysqm");
     }
   };
 
   async function onFormRemarkConfirm(...args: submitType) {
     const [value, suc, error] = args;
     console.log(value, suc, error);
-    console.log(formLeft.getFieldsValue());
     validateCSSJFields();
     suc();
   }
   function onFormCSTSConfirm(...args: submitType) {
     const [value, suc, error] = args;
     console.log(value, suc, error);
+    validateCSSJFields();
     suc();
   }
 
   function onFormJKJYConfirm(...args: submitType) {
     const [value, suc, error] = args;
     console.log(value, suc, error);
+    validateCSSJFields();
     suc();
   }
 
@@ -68,20 +80,54 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
   const validateCSSJFields = async () => {
     try {
       await formLeft.validateFields();
-      setSecondLevelActiveKey("right");
-      await formRight.validateFields();
-      setSecondLevelActiveKey("isthmus");
-      await formIsthmus.validateFields();
-      setFirstLevelActiveKey("csts");
-    } catch (error) {}
+      try {
+        await formRight.validateFields();
+        try {
+          await formIsthmus.validateFields();
+          try {
+            await formCSTS.validateFields();
+            try {
+              await formJKJY.validateFields();
+
+              const data = {};
+              let { cs_tip_des, cs_tips } = formCSTS.getFieldsValue();
+              cs_tips = cs_tips.filter((item: any) => !!item);
+              _.merge(
+                data,
+                formLeft.getFieldsValue(),
+                formRight.getFieldsValue(),
+                formIsthmus.getFieldsValue(),
+                formRemark.getFieldsValue(),
+                formJKJY.getFieldsValue(),
+                { cs_tip_des, cs_tips }
+              );
+
+              window.parent &&
+                window.parent.postMessage({ type: "previewReport", data }, "*");
+
+              console.log(data);
+            } catch (error) {
+              setFirstLevelActiveKey("jkjy");
+            }
+          } catch (error) {
+            setFirstLevelActiveKey("csts");
+          }
+        } catch (error) {
+          setSecondLevelActiveKey("isthmus");
+        }
+      } catch (error) {
+        setSecondLevelActiveKey("right");
+      }
+    } catch (error) {
+      setSecondLevelActiveKey("left");
+    }
   };
 
   /**
    * 预览报告
    */
   const previewReport = () => {
-    // validateCSSJFields()
-    window.parent && window.parent.postMessage({ type: "45565978789" }, "*");
+    validateCSSJFields();
   };
 
   const extraOperations = (
