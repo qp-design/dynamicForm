@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from "react";
 import { FieldType, submitType } from "libs/types/formField";
 import dynamicFormFields from "./dynamicFormFields";
 import { FormProps } from "antd/lib/form/Form";
-import _ from "lodash";
 
 interface Props extends FormProps {
   saveText?: string;
@@ -55,67 +54,6 @@ const DynamicForm = ({
     [form]
   );
 
-  function computedFields(
-    fieldsArray: Array<FieldType>,
-    showParams: Array<string>,
-    hiddenParams: Array<string>
-  ) {
-    return fieldsArray.filter((item: FieldType) => {
-      return (
-        (!_.isEmpty(showParams) &&
-          _.findIndex(showParams, (o) => _.isEqual(o, item.name)) > -1) ||
-        (!_.isEmpty(hiddenParams) &&
-          _.findIndex(showParams, (o) => _.isEqual(o, item.name)) < -1) ||
-        (_.isEmpty(showParams) && _.isEmpty(hiddenParams))
-      );
-    });
-  }
-
-  function onValuesChange() {
-    const [value] = [].slice.call(arguments, 0, 1);
-
-    resetFieldsConfig(value);
-  }
-
-  function fetchKey(params: { [v: string]: any }) {
-    let key = _.keys(params);
-    const value = _.get(params, key, "");
-    if (value instanceof Object) {
-      key.push(...fetchKey(value));
-    }
-    return key;
-  }
-
-  function resetFieldsConfig(params: { [v: string]: any }) {
-    // 获取key
-    const keys = fetchKey(params);
-    const key = keys.length === 1 ? keys[0] : keys;
-
-    // 查找索引
-    const idx = _.findIndex(fields, (o) => _.isEqual(o.name, key));
-
-    // empty 位空 说明没有计算项
-    const empty = _.get(fields[idx], `extraProps.config`, {});
-    if (_.isEmpty(empty)) return;
-
-    const value = _.get(params, key, "");
-
-    const visibleArray = _.get(
-      fields[idx],
-      `extraProps.config.${value}.visible`,
-      []
-    );
-    const hiddenArray = _.get(
-      fields[idx],
-      `extraProps.config.${value}.hidden`,
-      []
-    );
-
-    // 计算获取新的配置项
-    const prevArray = computedFields(defaultFields, visibleArray, hiddenArray);
-    setFormFields(prevArray);
-  }
-
   return (
     <Form
       {...{
@@ -128,7 +66,6 @@ const DynamicForm = ({
         labelCol,
       }}
       name="basic"
-      onValuesChange={onValuesChange}
     >
       {dynamicFormFields(fields)}
       <Form.Item label=" " colon={false}>

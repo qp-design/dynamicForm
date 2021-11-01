@@ -17,9 +17,12 @@ const InnerForm: Array<FieldType> = [
     },
     name: ["oneField", "tet12"],
     type: "text",
-    rules: [{ required: true, message: "请输入名称3" }],
+    prefixIcon: ({ getFieldValue }: FormInstance) => {
+      console.log(20, getFieldValue);
+      return 123;
+    },
     extraProps: {
-      prefix: "厚",
+      prefix: "12121212厚",
       suffix: "mm",
       placeholder: "请输入名称3",
     },
@@ -76,47 +79,7 @@ const InnerFormTwo: Array<FieldType> = [
   },
 ];
 
-const fieldsForm: Array<FieldType> = [
-  {
-    colon: false,
-    name: ["complex", "isVisible"],
-    type: "checkbox",
-    label: " ",
-    rules: [
-      ({ getFieldValue }: FormInstance) => ({
-        required: getFieldValue(["complex", "isVisible"]),
-        message: "请输入名称3",
-      }),
-      setFieldsImp.bind(null, (value: unknown) => ({
-        test: value,
-      })),
-    ],
-    extraProps: {
-      label: "未显示",
-      placeholder: "请输入名称1",
-      config: {
-        true: {
-          visible: [["complex", "isVisible"], "test", "default"],
-        },
-      },
-    },
-  },
-  {
-    name: "",
-    label: "结节大小",
-    type: "complex",
-    extraProps: {
-      innerForm: InnerForm,
-    },
-  },
-  {
-    name: "twoField",
-    label: "是否禁用",
-    type: "complex",
-    extraProps: {
-      innerForm: InnerFormTwo,
-    },
-  },
+const InnerFormThree: Array<FieldType> = [
   {
     style: {
       marginTop: 20,
@@ -146,11 +109,11 @@ const fieldsForm: Array<FieldType> = [
     extraProps: {
       label: "正常",
       placeholder: "请输入名称1",
-      config: {
-        true: {
-          visible: [["complex", "isVisible"], "test", "default"],
-        },
-      },
+      // config: {
+      //   true: {
+      //     visible: [["complex", "isVisible"], "test", "default"],
+      //   },
+      // },
     },
   },
   {
@@ -191,6 +154,77 @@ const fieldsForm: Array<FieldType> = [
           value: 2,
         },
       ],
+    },
+  },
+];
+
+const fieldsForm: Array<FieldType> = [
+  {
+    colon: false,
+    name: ["complex", "isVisible"],
+    type: "checkbox",
+    label: " ",
+    rules: [
+      ({ getFieldValue }: FormInstance) => ({
+        required: getFieldValue(["complex", "isVisible"]),
+        message: "请输入名称3",
+      }),
+      setFieldsImp.bind(null, (value: unknown) => ({
+        test: value,
+      })),
+    ],
+    extraProps: {
+      label: "未显示",
+      placeholder: "请输入名称1",
+      // config: {
+      // true: {
+      //   visible: [["complex", "isVisible"], "test", "default"],
+      // },
+      // },
+    },
+  },
+  {
+    name: ["user", "select"],
+    type: "radioGroup",
+    label: "说明",
+    extraProps: {
+      options: [
+        {
+          label: "1说明大小",
+          value: 1,
+        },
+        {
+          label: "2说明大小",
+          value: 2,
+        },
+      ],
+      a: "123",
+    },
+  },
+  {
+    name: "oneField",
+    rules: [{ required: true, message: "请输入名称3" }],
+    label: "结节大小",
+    type: "complex",
+    extraProps: {
+      innerForm: InnerForm,
+    },
+  },
+  {
+    name: "twoField",
+    label: "XXXXXXXX是否禁用",
+    type: "complex",
+    extraProps: {
+      innerForm: InnerFormTwo,
+    },
+  },
+  {
+    name: "three",
+    noStyle: true,
+    calIsVisible: (getFieldsValue) => !getFieldsValue(["complex", "isVisible"]),
+    type: "complex",
+    extraProps: {
+      innerForm: InnerFormThree,
     },
   },
 ];

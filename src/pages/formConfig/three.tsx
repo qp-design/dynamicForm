@@ -3,10 +3,11 @@ import { FieldType } from "libs/types/formField";
 const innerForm = (value: number): Array<FieldType> => [
   {
     colon: false,
-    name: "testOne",
+    name: ["user", "testOne"],
     type: "checkbox",
     label: " ",
-    calIsVisible: (getFieldValue) => getFieldValue("user") === value,
+    calIsVisible: (getFieldValue) =>
+      getFieldValue(["user", "select"]) === value,
     prefixIcon: (
       <div>
         内蒙古自治区疾控中心副主任范蒙光表示，额济纳旗疫情防控难点体现在：医疗资源比较匮乏；病例的病情非常隐匿；由于地广人稀，口岸封控难度较大。
@@ -21,7 +22,7 @@ const innerForm = (value: number): Array<FieldType> => [
 
 const fieldsForm: Array<FieldType> = [
   {
-    name: "user",
+    name: ["user", "select"],
     type: "radioGroup",
     label: "说明",
     extraProps: {
