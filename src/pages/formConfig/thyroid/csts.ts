@@ -14,10 +14,9 @@ const innerForm = (
   options: any
 ): Array<FieldType> => [
   {
-    style: { display: "inline-block", width: 100 },
+    style: { display: "inline-block", width: 100, marginBottom: 0 },
     name: ["cs_tips", value],
     type: "select",
-    label: "",
     calIsDisabled: (getFieldValue) => !getFieldValue("csts")?.includes(value),
     rules: [
       (form: FormInstance) => {
@@ -37,7 +36,6 @@ const innerFormTextArea = (value: string): Array<FieldType> => [
     style: { width: 300 },
     name: "cs_tip_des",
     type: "textarea",
-    label: "",
     calIsDisabled: (getFieldValue) => !getFieldValue("csts")?.includes(value),
     rules: [
       (form: FormInstance) => {
@@ -61,10 +59,10 @@ const fieldsForm: Array<FieldType> = [
     rules: [
       { required: true, message: "请至少勾选一项超声提示" },
       ({ getFieldsValue, setFieldsValue }: FormInstance) => ({
-        validator(_: unknown, value: Array<number>) {
+        validator(_: unknown, value: Array<number> | undefined) {
           const { cs_tips, csts } = getFieldsValue();
           const params = cs_tips.map((item: string, idx: number) =>
-            value.includes(idx) ? item : undefined
+            value?.includes(idx) ? item : undefined
           );
           setFieldsValue?.({ cs_tips: params });
           if (!csts?.includes("other")) {

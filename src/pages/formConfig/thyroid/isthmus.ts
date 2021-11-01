@@ -46,49 +46,7 @@ const InnerForm: Array<FieldType> = [
     },
   },
 ];
-
-const fieldsForm: Array<FieldType> = [
-  {
-    name: ["tabs", "isthmus", "thyroid_size"],
-    type: "radioGroup",
-    label: "甲状腺大小",
-    rules: [{ required: true, message: "请输入甲状腺大小" }],
-    extraProps: {
-      options: thyroidSize,
-      config: {
-        4: {
-          visible: [["tabs", "isthmus", "thyroid_size"]],
-        },
-      },
-    },
-  },
-  {
-    name: ["tabs", "isthmus", "thyroid_echoes"],
-    type: "radioGroup",
-    label: "甲状腺回声",
-    rules: [{ required: true, message: "请输入甲状腺回声" }],
-    extraProps: {
-      options: thyroidEcho,
-    },
-  },
-  {
-    name: ["tabs", "isthmus", "echoes_uniformity"],
-    type: "radioGroup",
-    label: "回声均匀性",
-    rules: [{ required: true, message: "请输入回声均匀性" }],
-    extraProps: {
-      options: echoesUniformity,
-    },
-  },
-  {
-    name: ["tabs", "isthmus", "exist_tuber"],
-    type: "radioGroup",
-    label: "有无结节",
-    rules: [{ required: true, message: "请输入有无结节" }],
-    extraProps: {
-      options: existTuber,
-    },
-  },
+const GroupFormTwo: Array<FieldType> = [
   {
     name: ["tabs", "isthmus", "tuber_num"],
     type: "radioGroup",
@@ -99,15 +57,13 @@ const fieldsForm: Array<FieldType> = [
     },
   },
   {
-    style: {
-      // marginBottom: -24,
-    },
-    name: "",
+    style: { marginBottom: 0 },
+    name: ["tabs", "isthmus"],
     type: "complex",
+    label: "结节大小",
+    rules: [{ required: true, message: "请输入结节大小" }],
     extraProps: {
       innerForm: InnerForm,
-      label: "结节大小",
-      required: true,
     },
   },
   {
@@ -144,6 +100,72 @@ const fieldsForm: Array<FieldType> = [
     rules: [{ required: true, message: "请输入结节钙化" }],
     extraProps: {
       options: tuberCalcification,
+    },
+  },
+];
+const GroupFormOne: Array<FieldType> = [
+  {
+    name: ["tabs", "isthmus", "thyroid_echoes"],
+    type: "radioGroup",
+    label: "甲状腺回声",
+    rules: [{ required: true, message: "请输入甲状腺回声" }],
+    calIsVisible: (getFieldsValue) =>
+      getFieldsValue(["tabs", "isthmus", "thyroid_size"]) !== 3,
+    extraProps: {
+      options: thyroidEcho,
+    },
+  },
+  {
+    name: ["tabs", "isthmus", "echoes_uniformity"],
+    type: "radioGroup",
+    label: "回声均匀性",
+    rules: [{ required: true, message: "请输入回声均匀性" }],
+    calIsVisible: (getFieldsValue) =>
+      getFieldsValue(["tabs", "isthmus", "thyroid_size"]) !== 3,
+    extraProps: {
+      options: echoesUniformity,
+    },
+  },
+  {
+    name: ["tabs", "isthmus", "exist_tuber"],
+    type: "radioGroup",
+    label: "有无结节",
+    rules: [{ required: true, message: "请输入有无结节" }],
+    extraProps: {
+      options: existTuber,
+    },
+  },
+  {
+    name: ["tabs", "isthmus"],
+    type: "complex",
+    calIsVisible: (getFieldsValue) =>
+      getFieldsValue(["tabs", "isthmus", "exist_tuber"]) !== 0,
+    extraProps: {
+      innerForm: GroupFormTwo,
+    },
+  },
+];
+
+const fieldsForm: Array<FieldType> = [
+  {
+    name: ["tabs", "isthmus", "thyroid_size"],
+    type: "radioGroup",
+    label: "甲状腺大小",
+    rules: [{ required: true, message: "请输入甲状腺大小" }],
+    extraProps: {
+      options: thyroidSize,
+    },
+  },
+  {
+    style: {
+      marginBottom: -24,
+    },
+    name: ["tabs", "isthmus"],
+    type: "complex",
+    calIsVisible: (getFieldsValue) =>
+      getFieldsValue(["tabs", "isthmus", "thyroid_size"]) !== 4,
+    extraProps: {
+      innerForm: GroupFormOne,
     },
   },
 ];

@@ -2,9 +2,6 @@ import { FieldType } from "libs/types/formField";
 
 const fieldsForm: Array<FieldType> = [
   {
-    style: {
-      display: "block",
-    },
     name: ["remark"],
     type: "textarea",
     label: "左右侧及峡部其他备注",

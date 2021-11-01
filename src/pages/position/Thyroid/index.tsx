@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { Tabs, Form, Button } from "antd";
 import DynamicForm from "components/form";
 import {
@@ -26,6 +26,22 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
 
   const [firstLevelActiveKey, setFirstLevelActiveKey] = useState("cssj");
   const [secondLevelActiveKey, setSecondLevelActiveKey] = useState("left");
+
+  useEffect(() => {
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, []);
+
+  const handler = (e: any) => {
+    // if (e.origin != 'http://192.168.106.133:3000') return;
+    console.log("mesFromReact", e?.data);
+    const { type, data } = e?.data;
+    if (type === "onekeyNormal") {
+      formLeft.setFieldsValue(data);
+      formRight.setFieldsValue(data);
+      formIsthmus.setFieldsValue(data);
+    }
+  };
 
   async function onFormRemarkConfirm(...args: submitType) {
     const [value, suc, error] = args;
@@ -65,6 +81,7 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
    */
   const previewReport = () => {
     // validateCSSJFields()
+    window.parent && window.parent.postMessage({ type: "45565978789" }, "*");
   };
 
   const extraOperations = (

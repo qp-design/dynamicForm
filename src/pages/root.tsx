@@ -7,7 +7,7 @@ import Thyroid from "./position/Thyroid";
 const App: FC = () => {
   return (
     <ErrorBoundary fallbackRender={fullPageErrorFallback}>
-      <div style={{ width: 1000 }}>
+      <div style={{ width: "100%", padding: "0 24px" }}>
         <Thyroid />
       </div>
     </ErrorBoundary>
