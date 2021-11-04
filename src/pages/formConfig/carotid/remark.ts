@@ -4,7 +4,7 @@ const fieldsForm: Array<FieldType> = [
   {
     name: "remark",
     type: "textarea",
-    label: "左右侧及峡部其他备注",
+    label: "左右侧及其他备注",
     extraProps: {
       placeholder: "可输入其他描述内容",
     },

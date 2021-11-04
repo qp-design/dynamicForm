@@ -2,14 +2,7 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { Tabs, Form, Button, message } from "antd";
 import _ from "lodash";
 import DynamicForm from "components/form";
-import {
-  left,
-  right,
-  isthmus,
-  remark,
-  csts,
-  jkjy,
-} from "pages/formConfig/thyroid";
+import { left, right, remark, csts, jkjy } from "pages/formConfig/carotid";
 import { submitType } from "../../../libs/types/formField";
 import CompDoctorSign from "components/CompDoctorSign";
 import styles from "./index.module.less";
@@ -20,7 +13,6 @@ interface ThyroidProps {}
 const Thyroid: FunctionComponent<ThyroidProps> = () => {
   const [formLeft] = Form.useForm();
   const [formRight] = Form.useForm();
-  const [formIsthmus] = Form.useForm();
   const [formRemark] = Form.useForm();
   const [formCSTS] = Form.useForm();
   const [formJKJY] = Form.useForm();
@@ -62,20 +54,18 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
   };
 
   const handler = (e: any) => {
-    if (e.origin != "http://localhost:8000") return;
+    // if (e.origin != 'http://192.168.106.133:3000') return;
     console.log("mesFromReact", e?.data);
     const { type, data } = e?.data;
     if (type === "onekeyNormal") {
       formLeft.resetFields();
       formRight.resetFields();
-      formIsthmus.resetFields();
       formRemark.resetFields();
       formCSTS.resetFields();
       formJKJY.resetFields();
 
       formLeft.setFieldsValue(normalData);
       formRight.setFieldsValue(normalData);
-      formIsthmus.setFieldsValue(normalData);
       formCSTS.setFieldsValue(normalData);
       formJKJY.setFieldsValue(normalData);
       setFirstLevelActiveKey("ysqm");
@@ -114,45 +104,35 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
       try {
         await formRight.validateFields();
         try {
-          await formIsthmus.validateFields();
+          await formCSTS.validateFields();
           try {
-            await formCSTS.validateFields();
-            try {
-              await formJKJY.validateFields();
+            await formJKJY.validateFields();
 
-              if (signImg) {
-                const data = {};
-                let { cs_tip_des, cs_tips } = formCSTS.getFieldsValue();
-                cs_tips = cs_tips.filter((item: any) => !!item);
+            if (signImg) {
+              const data = {};
+              let { cs_tip_des, cs_tips } = formCSTS.getFieldsValue();
+              cs_tips = cs_tips.filter((item: any) => !!item);
 
-                _.merge(
-                  data,
-                  formLeft.getFieldsValue(),
-                  formRight.getFieldsValue(),
-                  formIsthmus.getFieldsValue(),
-                  formRemark.getFieldsValue(),
-                  formJKJY.getFieldsValue(),
-                  { cs_tip_des, cs_tips }
-                );
+              _.merge(
+                data,
+                formLeft.getFieldsValue(),
+                formRight.getFieldsValue(),
+                formRemark.getFieldsValue(),
+                formJKJY.getFieldsValue(),
+                { cs_tip_des, cs_tips }
+              );
 
-                window.parent &&
-                  window.parent.postMessage(
-                    { type: "previewReport", data },
-                    "*"
-                  );
-              } else {
-                message.warning("请先确认签名");
-              }
-              setFirstLevelActiveKey("ysqm");
-            } catch (error) {
-              setFirstLevelActiveKey("jkjy");
+              window.parent &&
+                window.parent.postMessage({ type: "previewReport", data }, "*");
+            } else {
+              message.warning("请先确认签名");
             }
+            setFirstLevelActiveKey("ysqm");
           } catch (error) {
-            setFirstLevelActiveKey("csts");
+            setFirstLevelActiveKey("jkjy");
           }
         } catch (error) {
-          setFirstLevelActiveKey("cssj");
-          setSecondLevelActiveKey("isthmus");
+          setFirstLevelActiveKey("csts");
         }
       } catch (error) {
         setFirstLevelActiveKey("cssj");
@@ -231,13 +211,6 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
       name: "右侧",
       render: (): React.ReactNode => (
         <DynamicForm {...right} form={formRight} />
-      ),
-    },
-    {
-      key: "isthmus",
-      name: "峡部",
-      render: (): React.ReactNode => (
-        <DynamicForm {...isthmus} form={formIsthmus} />
       ),
     },
   ];

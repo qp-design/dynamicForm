@@ -1,9 +1,8 @@
 import { Form, Button, message } from "antd";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FieldType, submitType } from "libs/types/formField";
 import dynamicFormFields from "./dynamicFormFields";
 import { FormInstance, FormProps } from "antd/lib/form/Form";
-import _ from "lodash";
 
 interface Props extends FormProps {
   saveText?: string;

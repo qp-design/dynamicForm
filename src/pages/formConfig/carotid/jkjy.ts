@@ -1,5 +1,5 @@
 import { FieldType } from "libs/types/formField";
-import { thyroidHealthInfo } from "constant/healthInfo";
+import { carotidArteryHealthInfo } from "constant/healthInfo";
 const innerForm = (value: number): Array<FieldType> => [
   {
     style: { width: 300 },
@@ -16,7 +16,7 @@ const innerForm = (value: number): Array<FieldType> => [
 ];
 
 const getOptions = () => {
-  return thyroidHealthInfo.map((item) => {
+  return carotidArteryHealthInfo.map((item) => {
     return {
       label: item.label,
       value: item.value,

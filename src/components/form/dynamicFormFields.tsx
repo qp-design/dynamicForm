@@ -1,4 +1,3 @@
-import React from "react";
 import { FieldType } from "libs/types/formField";
 import {
   NumberField,

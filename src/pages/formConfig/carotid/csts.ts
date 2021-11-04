@@ -1,11 +1,10 @@
 import { FieldType } from "libs/types/formField";
 import {
-  soundThyNormal,
-  soundThyAndNodule,
-  soundThyNodule,
-  soundThyChange,
-  soundThyBig,
-  soundThyKit,
+  soundCarNormal,
+  soundCarFilm,
+  soundCarFilmGred,
+  soundCarPlaQue,
+  soundCarStenosis,
 } from "constant/selectOptions";
 import { FormInstance } from "antd";
 const innerForm = (
@@ -14,7 +13,7 @@ const innerForm = (
   options: any
 ): Array<FieldType> => [
   {
-    style: { display: "inline-block", width: 100, marginBottom: 0 },
+    style: { display: "inline-block", width: 120, marginBottom: 0 },
     name: ["cs_tips", value],
     type: "select",
     calIsDisabled: (getFieldValue) => !getFieldValue("csts")?.includes(value),
@@ -24,7 +23,12 @@ const innerForm = (
         return { required: isChecked, message: "请选择" };
       },
     ],
-    suffixIcon: () => suffixIconValue,
+    prefixIcon: () => {
+      return value === 4 ? suffixIconValue : "";
+    },
+    suffixIcon: () => {
+      return value !== 4 ? suffixIconValue : "";
+    },
     extraProps: {
       options,
     },
@@ -78,36 +82,31 @@ const fieldsForm: Array<FieldType> = [
         {
           label: "",
           value: 0,
-          suffix: innerForm(0, "甲状腺超声检查未见明显异常", soundThyNormal),
+          suffix: innerForm(0, "颈动脉超声检查未见明显异常", soundCarNormal),
         },
         {
           label: "",
           value: 1,
-          suffix: innerForm(1, "甲状腺结节", soundThyNodule),
+          suffix: innerForm(1, "颈动脉内中膜增厚风险增加", soundCarFilm),
         },
         {
           label: "",
           value: 2,
-          suffix: innerForm(2, "甲状腺结节伴钙化", soundThyAndNodule),
+          suffix: innerForm(2, "颈动脉内中膜增厚", soundCarFilmGred),
         },
         {
           label: "",
           value: 3,
-          suffix: innerForm(
-            3,
-            "甲状腺弥漫性病变，结合甲状腺功能检查",
-            soundThyChange
-          ),
+          suffix: innerForm(3, "颈动脉可见斑块", soundCarPlaQue),
         },
         {
           label: "",
           value: 4,
-          suffix: innerForm(4, "甲状腺肿大", soundThyBig),
-        },
-        {
-          label: "",
-          value: 5,
-          suffix: innerForm(5, "甲状腺钙化灶", soundThyKit),
+          suffix: innerForm(
+            4,
+            "颈动脉斑块形成伴局部管腔狭窄，面积狭窄率约",
+            soundCarStenosis
+          ),
         },
         {
           label: "其他",
