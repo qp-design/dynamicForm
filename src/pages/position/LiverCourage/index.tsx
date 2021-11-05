@@ -2,7 +2,15 @@ import { FunctionComponent, useEffect, useState } from "react";
 import { Tabs, Form, Button, message } from "antd";
 import _ from "lodash";
 import DynamicForm from "components/form";
-import { left, right, remark, csts, jkjy } from "pages/formConfig/carotid";
+import {
+  left,
+  right,
+  gallbladder,
+  liverRemark,
+  gallbladderRemark,
+  csts,
+  jkjy,
+} from "pages/formConfig/LiverCourage";
 import { submitType } from "../../../libs/types/formField";
 import CompDoctorSign from "components/CompDoctorSign";
 import styles from "./index.module.less";
@@ -13,7 +21,9 @@ interface ThyroidProps {}
 const Thyroid: FunctionComponent<ThyroidProps> = () => {
   const [formLeft] = Form.useForm();
   const [formRight] = Form.useForm();
-  const [formRemark] = Form.useForm();
+  const [formGallbladder] = Form.useForm();
+  const [formLiverRemark] = Form.useForm();
+  const [formGallbladderRemark] = Form.useForm();
   const [formCSTS] = Form.useForm();
   const [formJKJY] = Form.useForm();
 
@@ -30,40 +40,56 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
   const normalData = {
     tabs: {
       left: {
-        not_show: 0,
-        intimal_surface: 1,
-        intimal_thickness: "",
-        intimal_echoes: 1,
-        luminal_patch: 1,
-        blood_flow: 0,
+        not_show: 2,
+        size: 1,
+        echo: 1,
+        echo_uniformity: 1,
+        intrahepatic_duct: 1,
+        liver_capsule: 1,
+        intrahepatic_blood_flow: 1,
+        perihepatic_effusion: 2,
+        exist_focus: 2,
       },
       right: {
-        not_show: 0,
-        intimal_surface: 1,
-        intimal_thickness: "",
-        intimal_echoes: 1,
-        luminal_patch: 1,
-        blood_flow: 0,
+        not_show: 2,
+        size: 1,
+        echo: 1,
+        echo_uniformity: 1,
+        intrahepatic_duct: 1,
+        liver_capsule: 1,
+        intrahepatic_blood_flow: 1,
+        perihepatic_effusion: 2,
+        exist_focus: 2,
+      },
+      gallbladder: {
+        not_show: 2,
+        size: 1,
+        echo: 1,
+        gall_wall: 1,
+        exist_focus: 2,
       },
     },
     csts: [0],
-    cs_tips: ["63"],
+    cs_tips: ["14"],
     health_proposal: 0,
   };
 
   const handler = (e: any) => {
-    // if (e.origin != 'http://192.168.106.133:3000') return;
+    if (e.origin != "http://localhost:8000") return;
     console.log("mesFromReact", e?.data);
     const { type, data } = e?.data;
     if (type === "onekeyNormal") {
       formLeft.resetFields();
       formRight.resetFields();
-      formRemark.resetFields();
+      formGallbladder.resetFields();
+      formLiverRemark.resetFields();
+      formGallbladderRemark.resetFields();
       formCSTS.resetFields();
       formJKJY.resetFields();
 
       formLeft.setFieldsValue(normalData);
       formRight.setFieldsValue(normalData);
+      formGallbladder.setFieldsValue(normalData);
       formCSTS.setFieldsValue(normalData);
       formJKJY.setFieldsValue(normalData);
       setFirstLevelActiveKey("ysqm");
@@ -72,12 +98,20 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
     }
   };
 
-  async function onFormRemarkConfirm(...args: submitType) {
+  function onFormLiverRemarkConfirm(...args: submitType) {
     const [value, suc, error] = args;
     console.log(value, suc, error);
     validateCSSJFields();
     suc();
   }
+
+  function onFormGallbladderRemarkConfirm(...args: submitType) {
+    const [value, suc, error] = args;
+    console.log(value, suc, error);
+    validateCSSJFields();
+    suc();
+  }
+
   function onFormCSTSConfirm(...args: submitType) {
     const [value, suc, error] = args;
     console.log(value, suc, error);
@@ -102,35 +136,46 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
       try {
         await formRight.validateFields();
         try {
-          await formCSTS.validateFields();
+          await formGallbladder.validateFields();
           try {
-            await formJKJY.validateFields();
+            await formCSTS.validateFields();
+            try {
+              await formJKJY.validateFields();
 
-            if (signImg) {
-              const data = {};
-              let { cs_tip_des, cs_tips } = formCSTS.getFieldsValue();
-              cs_tips = cs_tips.filter((item: any) => !!item);
+              if (signImg) {
+                const data = {};
+                let { cs_tip_des, cs_tips } = formCSTS.getFieldsValue();
+                cs_tips = cs_tips.filter((item: any) => !!item);
 
-              _.merge(
-                data,
-                formLeft.getFieldsValue(),
-                formRight.getFieldsValue(),
-                formRemark.getFieldsValue(),
-                formJKJY.getFieldsValue(),
-                { cs_tip_des, cs_tips }
-              );
+                _.merge(
+                  data,
+                  formLeft.getFieldsValue(),
+                  formRight.getFieldsValue(),
+                  formGallbladder.getFieldsValue(),
+                  formLiverRemark.getFieldsValue(),
+                  formGallbladderRemark.getFieldsValue(),
+                  formJKJY.getFieldsValue(),
+                  { cs_tip_des, cs_tips }
+                );
 
-              window.parent &&
-                window.parent.postMessage({ type: "previewReport", data }, "*");
-            } else {
-              message.warning("请先确认签名");
+                window.parent &&
+                  window.parent.postMessage(
+                    { type: "previewReport", data },
+                    "*"
+                  );
+              } else {
+                message.warning("请先确认签名");
+              }
+              setFirstLevelActiveKey("ysqm");
+            } catch (error) {
+              setFirstLevelActiveKey("jkjy");
             }
-            setFirstLevelActiveKey("ysqm");
           } catch (error) {
-            setFirstLevelActiveKey("jkjy");
+            setFirstLevelActiveKey("csts");
           }
         } catch (error) {
-          setFirstLevelActiveKey("csts");
+          setFirstLevelActiveKey("cssj");
+          setSecondLevelActiveKey("gallbladder");
         }
       } catch (error) {
         setFirstLevelActiveKey("cssj");
@@ -201,14 +246,21 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
   const secondTabs = [
     {
       key: "left",
-      name: "左侧",
+      name: "肝脏左叶",
       render: (): React.ReactNode => <DynamicForm {...left} form={formLeft} />,
     },
     {
       key: "right",
-      name: "右侧",
+      name: "肝脏右叶",
       render: (): React.ReactNode => (
         <DynamicForm {...right} form={formRight} />
+      ),
+    },
+    {
+      key: "gallbladder",
+      name: "胆囊",
+      render: (): React.ReactNode => (
+        <DynamicForm {...gallbladder} form={formGallbladder} />
       ),
     },
   ];
@@ -240,17 +292,38 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
           </TabPane>
         ))}
       </Tabs>
-      {/* 超声所见下面的其他备注textarea 三个tab共用，所以得单独抽出来 */}
+      {/* 超声所见下面的其他备注textarea 前2个tab共用，所以得单独抽出来 */}
       <div
         style={{
           display:
-            isFirstLevel && firstLevelActiveKey === "cssj" ? "block" : "none",
+            isFirstLevel &&
+            firstLevelActiveKey === "cssj" &&
+            secondLevelActiveKey !== "gallbladder"
+              ? "block"
+              : "none",
         }}
       >
         <DynamicForm
-          {...remark}
-          onSubmit={onFormRemarkConfirm}
-          form={formRemark}
+          {...liverRemark}
+          onSubmit={onFormLiverRemarkConfirm}
+          form={formLiverRemark}
+        />
+      </div>
+      {/* 胆囊其他备注表单 */}
+      <div
+        style={{
+          display:
+            isFirstLevel &&
+            firstLevelActiveKey === "cssj" &&
+            secondLevelActiveKey === "gallbladder"
+              ? "block"
+              : "none",
+        }}
+      >
+        <DynamicForm
+          {...gallbladderRemark}
+          onSubmit={onFormGallbladderRemarkConfirm}
+          form={formGallbladderRemark}
         />
       </div>
     </>

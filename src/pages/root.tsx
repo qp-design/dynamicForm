@@ -1,9 +1,9 @@
 import { FC, ReactNode } from "react";
 import { ErrorBoundary } from "components/error/error-boundary";
 import { fullPageErrorFallback } from "components/error/fullPageErrorFallBack";
-// import OneJsx from "./position/one";
 import Thyroid from "./position/Thyroid";
 import Carotid from "./position/Carotid";
+import LiverCourage from "./position/LiverCourage";
 
 const App: FC = () => {
   const query = new URLSearchParams(window.location.search);
@@ -18,7 +18,7 @@ const App: FC = () => {
         return <Carotid />;
         break;
       case "3":
-        return <>肝脏</>;
+        return <LiverCourage />;
         break;
       case "4":
       case "5":
