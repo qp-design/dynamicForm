@@ -4,6 +4,7 @@ import { fullPageErrorFallback } from "components/error/fullPageErrorFallBack";
 import Thyroid from "./position/Thyroid";
 import Carotid from "./position/Carotid";
 import LiverCourage from "./position/LiverCourage";
+import Universal from "./position/Universal";
 
 const App: FC = () => {
   const query = new URLSearchParams(window.location.search);
@@ -22,7 +23,7 @@ const App: FC = () => {
         break;
       case "4":
       case "5":
-        return <>通用</>;
+        return <Universal />;
       case "6":
         return <>乳腺</>;
         break;

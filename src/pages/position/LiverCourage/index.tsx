@@ -10,15 +10,13 @@ import {
   gallbladderRemark,
   csts,
   jkjy,
-} from "pages/formConfig/LiverCourage";
+} from "pages/formConfig/liverCourage";
 import { submitType } from "../../../libs/types/formField";
 import CompDoctorSign from "components/CompDoctorSign";
 import styles from "./index.module.less";
 const { TabPane } = Tabs;
 
-interface ThyroidProps {}
-
-const Thyroid: FunctionComponent<ThyroidProps> = () => {
+const LiverCourage: FunctionComponent = () => {
   const [formLeft] = Form.useForm();
   const [formRight] = Form.useForm();
   const [formGallbladder] = Form.useForm();
@@ -332,4 +330,4 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
   return <div className={styles.container}>{renderTab(firstTabs, true)}</div>;
 };
 
-export default Thyroid;
+export default LiverCourage;

@@ -8,9 +8,7 @@ import CompDoctorSign from "components/CompDoctorSign";
 import styles from "./index.module.less";
 const { TabPane } = Tabs;
 
-interface ThyroidProps {}
-
-const Thyroid: FunctionComponent<ThyroidProps> = () => {
+const Carotid: FunctionComponent = () => {
   const [formLeft] = Form.useForm();
   const [formRight] = Form.useForm();
   const [formRemark] = Form.useForm();
@@ -259,4 +257,4 @@ const Thyroid: FunctionComponent<ThyroidProps> = () => {
   return <div className={styles.container}>{renderTab(firstTabs, true)}</div>;
 };
 
-export default Thyroid;
+export default Carotid;
