@@ -136,6 +136,9 @@ const GroupFormOne: Array<FieldType> = [
     },
   },
   {
+    style: {
+      marginBottom: 0,
+    },
     name: ["tabs", "left"],
     type: "complex",
     calIsVisible: (getFieldsValue) =>
@@ -158,7 +161,7 @@ const fieldsForm: Array<FieldType> = [
   },
   {
     style: {
-      marginBottom: -24,
+      marginBottom: 0,
     },
     name: ["tabs", "left"],
     type: "complex",

@@ -184,11 +184,14 @@ const GroupFormOne: Array<FieldType> = [
     },
   },
   {
+    style: {
+      marginBottom: 0,
+    },
     name: ["tabs", "right"],
     type: "complex",
     calIsVisible: (getFieldsValue) =>
-      getFieldsValue(["tabs", "left", "exist_focus"]) !== 2 &&
-      getFieldsValue(["tabs", "left", "exist_focus"]) !== 3,
+      getFieldsValue(["tabs", "right", "exist_focus"]) !== 2 &&
+      getFieldsValue(["tabs", "right", "exist_focus"]) !== 3,
     extraProps: {
       innerForm: GroupFormTwo,
     },

@@ -2,18 +2,8 @@ import { FieldType } from "libs/types/formField";
 import {
   lcIsShow,
   lcSize,
-  lcSound,
-  lcSoundEven,
-  lcPipe,
-  lcFilm,
-  lcBold,
-  lcLiquid,
   lcFocus,
   lcFocusNum,
-  lcEcho,
-  lcForm,
-  lcBorder,
-  lcAfterSound,
   courageSound,
   couGalWall,
   couAfterBackSound,
@@ -149,11 +139,14 @@ const GroupFormOne: Array<FieldType> = [
     },
   },
   {
+    style: {
+      marginBottom: 0,
+    },
     name: ["tabs", "gallbladder"],
     type: "complex",
     calIsVisible: (getFieldsValue) =>
-      getFieldsValue(["tabs", "left", "exist_focus"]) !== 2 &&
-      getFieldsValue(["tabs", "left", "exist_focus"]) !== 3,
+      getFieldsValue(["tabs", "gallbladder", "exist_focus"]) !== 2 &&
+      getFieldsValue(["tabs", "gallbladder", "exist_focus"]) !== 3,
     extraProps: {
       innerForm: GroupFormTwo,
     },
