@@ -23,7 +23,8 @@ const Universal: FunctionComponent = () => {
   }, []);
 
   const handler = (e: any) => {
-    if (e.origin != "http://192.168.106.133:3000") return;
+    // debugger
+    // if (e.origin != "http://192.168.106.133:3000") return;
     console.log("mesFromReact", e?.data);
     const { type, data } = e?.data;
     if (type === "getSignImg") {

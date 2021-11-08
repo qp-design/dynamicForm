@@ -1,10 +1,9 @@
 import { FieldType } from "libs/types/formField";
 import {
-  soundCarNormal,
-  soundCarFilm,
-  soundCarFilmGred,
-  soundCarPlaQue,
-  soundCarStenosis,
+  breastNormal,
+  breastNodule,
+  breastLesion,
+  breastExpands,
 } from "constant/selectOptions";
 import { FormInstance } from "antd";
 const innerForm = (
@@ -82,31 +81,22 @@ const fieldsForm: Array<FieldType> = [
         {
           label: "",
           value: 0,
-          suffix: innerForm(0, "颈动脉超声检查未见明显异常", soundCarNormal),
+          suffix: innerForm(0, "乳腺超声检查未见明显异常", breastNormal),
         },
         {
           label: "",
           value: 1,
-          suffix: innerForm(1, "颈动脉内中膜增厚风险增加", soundCarFilm),
+          suffix: innerForm(1, "乳腺结节", breastNodule),
         },
         {
           label: "",
           value: 2,
-          suffix: innerForm(2, "颈动脉内中膜增厚", soundCarFilmGred),
+          suffix: innerForm(2, "乳腺增生性病变", breastLesion),
         },
         {
           label: "",
           value: 3,
-          suffix: innerForm(3, "颈动脉可见斑块", soundCarPlaQue),
-        },
-        {
-          label: "",
-          value: 4,
-          suffix: innerForm(
-            4,
-            "颈动脉斑块形成伴局部管腔狭窄，面积狭窄率约",
-            soundCarStenosis
-          ),
+          suffix: innerForm(3, "乳腺导管扩张", breastExpands),
         },
         {
           label: "其他",

@@ -1,7 +1,7 @@
 import { FieldType } from "libs/types/formField";
 import {
   soundLiverNormal,
-  // soundLiverCou,
+  soundLiverCou,
   // soundThyCalci
 } from "constant/selectOptions";
 import { FormInstance } from "antd";
@@ -78,62 +78,42 @@ const fieldsForm: Array<FieldType> = [
           suffix: innerForm(0, "超声检查未见明显异常", soundLiverNormal),
         },
         {
-          label: "",
+          label: "肝内脂肪浸润",
           value: 1,
-          suffix: [
-            {
-              style: { display: "inline-block", width: 100, marginBottom: 0 },
-              name: ["cs_tips", 1],
-              type: "select",
-              calIsDisabled: (getFieldValue: any) =>
-                !getFieldValue("csts")?.includes(1),
-              rules: [
-                (form: FormInstance) => {
-                  const isChecked = form.getFieldValue("csts")?.includes(1);
-                  return { required: isChecked, message: "请选择" };
-                },
-              ],
-              suffixIcon: () => "肝内脂肪浸润",
-              extraProps: {
-                options: [
-                  {
-                    label: "肝内脂肪浸润",
-                    value: "15",
-                  },
-                ],
-              },
-            },
-          ],
         },
-        // {
-        //   label: "",
-        //   value: 1,
-        //   suffix: innerForm(1, "甲状腺结节", soundThyNodule),
-        // },
-        // {
-        //   label: "",
-        //   value: 2,
-        //   suffix: innerForm(2, "甲状腺结节伴钙化", soundThyAndNodule),
-        // },
-        // {
-        //   label: "",
-        //   value: 3,
-        //   suffix: innerForm(
-        //     3,
-        //     "甲状腺弥漫性病变，结合甲状腺功能检查",
-        //     soundThyChange
-        //   ),
-        // },
-        // {
-        //   label: "",
-        //   value: 4,
-        //   suffix: innerForm(4, "甲状腺肿大", soundThyBig),
-        // },
-        // {
-        //   label: "",
-        //   value: 5,
-        //   suffix: innerForm(5, "甲状腺钙化灶", soundThyKit),
-        // },
+        {
+          label: "",
+          value: 2,
+          suffix: innerForm(2, "脂肪肝", soundLiverCou),
+        },
+        {
+          label: "局限性脂肪肝",
+          value: 3,
+        },
+        {
+          label: "慢性肝病，考虑肝纤维化，请结合肝功能检查",
+          value: 4,
+        },
+        {
+          label: "慢性肝病，考虑肝硬化，请结合肝功能检查",
+          value: 5,
+        },
+        {
+          label: "胆囊炎",
+          value: 6,
+        },
+        {
+          label: "胆囊结石",
+          value: 7,
+        },
+        {
+          label: "胆壁胆固醇结晶",
+          value: 8,
+        },
+        {
+          label: "胆囊息肉",
+          value: 9,
+        },
         {
           label: "其他",
           value: "other",

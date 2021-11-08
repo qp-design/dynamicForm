@@ -5,6 +5,7 @@ import Thyroid from "./position/Thyroid";
 import Carotid from "./position/Carotid";
 import LiverCourage from "./position/LiverCourage";
 import Universal from "./position/Universal";
+import Breast from "./position/Breast";
 
 const App: FC = () => {
   const query = new URLSearchParams(window.location.search);
@@ -25,7 +26,7 @@ const App: FC = () => {
       case "5":
         return <Universal />;
       case "6":
-        return <>乳腺</>;
+        return <Breast />;
         break;
     }
   };
