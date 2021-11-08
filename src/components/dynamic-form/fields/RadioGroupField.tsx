@@ -14,10 +14,10 @@ export default function RadioGroupField({
     <Radio.Group {...extraProps}>
       <Space direction={direction}>
         {options.map((item, idx) => (
-          <Radio key={idx} value={item.value}>
-            {item.label}
+          <Space key={idx} direction={item.direction || "horizontal"}>
+            <Radio value={item.value}>{item.label}</Radio>
             {item.suffix ? <ComplexFields innerForm={item.suffix} /> : null}
-          </Radio>
+          </Space>
         ))}
       </Space>
     </Radio.Group>

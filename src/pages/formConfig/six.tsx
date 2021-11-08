@@ -1,12 +1,7 @@
 import { FieldType } from "libs/types/formField";
 import { FormInstance } from "antd";
 
-const innerForm = (
-  key: number,
-  value: number,
-  options: Array<any>,
-  suffixIcon?: string
-): Array<FieldType> => [
+const innerForm = (key: number, value: number): Array<FieldType> => [
   {
     noStyle: true,
     colon: false,
@@ -14,16 +9,17 @@ const innerForm = (
     calIsDisabled: (getFieldValue) =>
       !(getFieldValue(["users", "selectUser"]) || []).includes(value),
     type: "select",
-    rules: [
-      ({ getFieldValue }: FormInstance) => ({
-        required: getFieldValue?.(["users", "selectUser"])?.includes(key),
-        message: "请选择",
-      }),
-    ],
-    suffixIcon,
     extraProps: {
-      placeholder: "请选择",
-      options,
+      options: [
+        {
+          label: "123123",
+          value: 1,
+        },
+        {
+          label: "22222",
+          value: 12,
+        },
+      ],
       style: {
         width: 200,
       },
@@ -47,7 +43,6 @@ const fieldsForm: Array<FieldType> = [
           const params = values.map((item: string, idx: number) =>
             value.includes(idx) ? item : undefined
           );
-          params[2] = value.includes(2) ? 1 : undefined;
           setFieldsValue({
             users: {
               selectUserDes: params,
@@ -61,35 +56,13 @@ const fieldsForm: Array<FieldType> = [
       direction: "vertical",
       options: [
         {
+          direction: "vertical",
           value: 0,
-          suffix: innerForm(
-            0,
-            0,
-            [
-              {
-                label: "元素",
-                value: 1,
-              },
-              {
-                label: "组织",
-                value: 12,
-              },
-            ],
-            " 描述文字"
-          ),
+          suffix: innerForm(0, 0),
         },
         {
           value: 1,
-          label: "嵌套的元素",
-        },
-        {
-          value: 2,
-          suffix: innerForm(2, 2, [
-            {
-              label: "毫无关联",
-              value: 1,
-            },
-          ]),
+          suffix: innerForm(1, 1),
         },
       ],
     },

@@ -14,10 +14,10 @@ export default function CheckboxGroupField({
     <Checkbox.Group {...extraProps}>
       <Space direction={direction}>
         {options.map((item, idx) => (
-          <Checkbox key={idx} value={item.value}>
-            {item.label}
+          <Space key={idx} direction={item.direction || "horizontal"}>
+            <Checkbox value={item.value}>{item.label}</Checkbox>
             {item.suffix ? <ComplexFields innerForm={item.suffix} /> : null}
-          </Checkbox>
+          </Space>
         ))}
       </Space>
     </Checkbox.Group>

@@ -81,6 +81,50 @@ const InnerFormTwo: Array<FieldType> = [
 
 const InnerFormThree: Array<FieldType> = [
   {
+    name: "twoField",
+    label: "XXXXXXXX是否禁用",
+    type: "complex",
+    extraProps: {
+      innerForm: InnerFormTwo,
+    },
+  },
+  {
+    name: ["user", "select"],
+    type: "radioGroup",
+    label: "说明",
+    extraProps: {
+      options: [
+        {
+          label: "1说明大小",
+          value: 1,
+        },
+        {
+          label: "2说明大小",
+          value: 2,
+        },
+      ],
+      a: "123",
+    },
+  },
+  {
+    name: ["user", "selectOne"],
+    type: "radioGroup",
+    label: "说明",
+    extraProps: {
+      options: [
+        {
+          label: "1说明大小",
+          value: 1,
+        },
+        {
+          label: "2说明大小",
+          value: 2,
+        },
+      ],
+      a: "123",
+    },
+  },
+  {
     style: {
       marginTop: 20,
     },
@@ -184,24 +228,6 @@ const fieldsForm: Array<FieldType> = [
     },
   },
   {
-    name: ["user", "select"],
-    type: "radioGroup",
-    label: "说明",
-    extraProps: {
-      options: [
-        {
-          label: "1说明大小",
-          value: 1,
-        },
-        {
-          label: "2说明大小",
-          value: 2,
-        },
-      ],
-      a: "123",
-    },
-  },
-  {
     name: "oneField",
     rules: [{ required: true, message: "请输入名称3" }],
     label: "结节大小",
@@ -212,14 +238,6 @@ const fieldsForm: Array<FieldType> = [
   },
   {
     name: "twoField",
-    label: "XXXXXXXX是否禁用",
-    type: "complex",
-    extraProps: {
-      innerForm: InnerFormTwo,
-    },
-  },
-  {
-    name: "three",
     noStyle: true,
     calIsVisible: (getFieldsValue) => !getFieldsValue(["complex", "isVisible"]),
     type: "complex",
