@@ -1,14 +1,19 @@
 import { Form, Button, message } from "antd";
 import React, { useCallback, useEffect, useState } from "react";
-import { FieldType, submitType } from "libs/types/formField";
+import { FieldType, submitType, TransformType } from "libs/types/formField";
 import dynamicFormFields from "./dynamicFormFields";
 import { FormProps } from "antd/lib/form/Form";
+import get from "lodash/get";
+import set from "lodash/set";
+import omit from "lodash/omit";
+import cloneDeep from "lodash/cloneDeep";
 
 interface Props extends FormProps {
   saveText?: string;
   initialValues?: { [v: string]: unknown };
   onSubmit: (...args: submitType) => void;
   fields: Array<FieldType>;
+  transformSubmitDataConfig?: Array<TransformType>;
 }
 
 const DynamicForm = ({
@@ -19,6 +24,7 @@ const DynamicForm = ({
   initialValues,
   onSubmit,
   fields: defaultFields,
+  transformSubmitDataConfig = [],
 }: Props) => {
   const [form] = Form.useForm();
   const [fields, setFormFields] = useState<Array<FieldType>>([]);
@@ -28,11 +34,32 @@ const DynamicForm = ({
     setFormFields(defaultFields);
   }, [defaultFields]);
 
+  const computedSubmitValues = useCallback(
+    (values: { [v: string]: unknown }) => {
+      const forkTransformConfig = cloneDeep(transformSubmitDataConfig);
+      while (forkTransformConfig.length > 0) {
+        const {
+          from,
+          isDelete = false,
+          to,
+          format,
+        } = forkTransformConfig.shift() as TransformType;
+        const value = get(values, from);
+        set(values, to, format(value));
+        if (isDelete) {
+          values = omit(values, from);
+        }
+      }
+      return values;
+    },
+    [transformSubmitDataConfig]
+  );
+
   const onFinish = useCallback(
     (values) => {
       setIsSubmitting(true);
       onSubmit(
-        values,
+        computedSubmitValues(values),
         (msg) => {
           const { setFieldsValue, getFieldsValue } = form;
           setIsSubmitting(false);
@@ -44,7 +71,7 @@ const DynamicForm = ({
         }
       );
     },
-    [form, onSubmit]
+    [form, onSubmit, computedSubmitValues]
   );
 
   const onFinishFailed = useCallback(

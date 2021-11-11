@@ -37,3 +37,10 @@ export interface FieldType {
   extraProps?: { [k: string]: unknown };
   style?: { [k: string]: unknown };
 }
+
+export interface TransformType {
+  from: string;
+  to: string;
+  format: (value: any) => any;
+  isDelete?: boolean; // 原字段是否保留: true删除
+}

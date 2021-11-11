@@ -1,4 +1,4 @@
-import { FieldType } from "libs/types/formField";
+import { FieldType, TransformType } from "libs/types/formField";
 import { FormInstance } from "antd";
 
 const innerForm = (
@@ -96,11 +96,20 @@ const fieldsForm: Array<FieldType> = [
   },
 ];
 
+const transformSubmitDataConfig: Array<TransformType> = [
+  {
+    from: "users.selectUser",
+    to: "users.selectUserDes[1]",
+    format: (value: any) => (value.includes(1) ? 100 : undefined),
+  },
+];
+
 const config = {
   saveText: "下一步",
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
   fields: fieldsForm,
+  transformSubmitDataConfig,
 };
 
 export default config;
