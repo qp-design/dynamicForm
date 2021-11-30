@@ -1,4 +1,4 @@
-import { FieldType } from "libs/types/formField";
+import { FieldType, TransformType } from "libs/types/formField";
 import { FormInstance } from "antd";
 
 type fucType = (value: unknown) => { [v: string]: unknown };
@@ -208,15 +208,15 @@ const fieldsForm: Array<FieldType> = [
     name: ["complex", "isVisible"],
     type: "checkbox",
     label: " ",
-    rules: [
-      ({ getFieldValue }: FormInstance) => ({
-        required: getFieldValue(["complex", "isVisible"]),
-        message: "请输入名称3",
-      }),
-      setFieldsImp.bind(null, (value: unknown) => ({
-        test: value,
-      })),
-    ],
+    // rules: [
+    //   ({ getFieldValue }: FormInstance) => ({
+    //     required: getFieldValue(["complex", "isVisible"]),
+    //     message: "请输入名称3",
+    //   }),
+    //   setFieldsImp.bind(null, (value: unknown) => ({
+    //     test: value,
+    //   })),
+    // ],
     extraProps: {
       label: "未显示",
       placeholder: "请输入名称1",
@@ -247,11 +247,21 @@ const fieldsForm: Array<FieldType> = [
   },
 ];
 
+const transformSubmitDataConfig: Array<TransformType> = [
+  {
+    from: "oneField",
+    to: "oneFieldComplex",
+    isDelete: true,
+    format: (value: any) => value,
+  },
+];
+
 const config = {
   saveText: "下一步",
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
   fields: fieldsForm,
+  transformSubmitDataConfig,
 };
 
 export default config;
