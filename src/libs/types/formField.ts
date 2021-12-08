@@ -41,6 +41,6 @@ export interface FieldType {
 export interface TransformType {
   from: string;
   to: string;
-  format: (value: any) => any;
+  format: (preValue: any, value: any) => any;
   isDelete?: boolean; // 原字段是否保留: true删除
 }

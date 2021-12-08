@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import DynamicForm from "components/form";
-import { one } from "pages/formConfig";
+import { four as one } from "pages/formConfig";
 import { submitType } from "../../../libs/types/formField";
 
 const OneJsx: FC = () => {

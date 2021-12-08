@@ -1,4 +1,7 @@
-import { FieldType, TransformType } from "libs/types/formField";
+import {
+  FieldType,
+  // TransformType
+} from "libs/types/formField";
 import { FormInstance } from "antd";
 
 const innerForm = (
@@ -11,6 +14,28 @@ const innerForm = (
     noStyle: true,
     colon: false,
     name: ["users", "selectUserDes", key],
+    calIsDisabled: (getFieldValue) =>
+      !(getFieldValue(["users", "selectUser"]) || []).includes(value),
+    type: "select",
+    rules: [
+      ({ getFieldValue }: FormInstance) => ({
+        required: getFieldValue?.(["users", "selectUser"])?.includes(key),
+        message: "请选择",
+      }),
+    ],
+    suffixIcon,
+    extraProps: {
+      placeholder: "请选择",
+      options,
+      style: {
+        width: 200,
+      },
+    },
+  },
+  {
+    noStyle: true,
+    colon: false,
+    name: ["users", "selectUserDesOne", key + 1],
     calIsDisabled: (getFieldValue) =>
       !(getFieldValue(["users", "selectUser"]) || []).includes(value),
     type: "select",
@@ -96,20 +121,20 @@ const fieldsForm: Array<FieldType> = [
   },
 ];
 
-const transformSubmitDataConfig: Array<TransformType> = [
-  {
-    from: "users.selectUser",
-    to: "users.selectUserDes[1]",
-    format: (value: any) => (value.includes(1) ? 100 : undefined),
-  },
-];
+// const transformSubmitDataConfig: Array<TransformType> = [
+//   {
+//     from: "users.selectUser",
+//     to: "users.selectUserDes[1]",
+//     format: (value: any) => (value.includes(1) ? 100 : undefined),
+//   },
+// ];
 
 const config = {
   saveText: "下一步",
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
   fields: fieldsForm,
-  transformSubmitDataConfig,
+  // transformSubmitDataConfig,
 };
 
 export default config;

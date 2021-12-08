@@ -44,10 +44,9 @@ const DynamicForm = ({
           to,
           format,
         } = forkTransformConfig.shift() as TransformType;
-        const value = get(values, from);
-        const prevValue = get(values, to);
-        const prevData = prevValue instanceof Object ? prevValue : {};
-        set(values, to, { ...prevData, ...format(value) });
+        const prevValue = get(values, from);
+        const value = get(values, to);
+        set(values, to, format(prevValue, value));
         if (isDelete) {
           values = omit(values, from);
         }

@@ -89,7 +89,7 @@ const InnerFormThree: Array<FieldType> = [
     },
   },
   {
-    name: ["user", "select"],
+    name: ["user", "select1", "selectOne"],
     type: "radioGroup",
     label: "说明",
     extraProps: {
@@ -107,7 +107,9 @@ const InnerFormThree: Array<FieldType> = [
     },
   },
   {
-    name: ["user", "selectOne"],
+    name: ["user", "select1", "selectTwo"],
+    calIsVisible: (getFieldValue) =>
+      getFieldValue(["user", "select1", "selectOne"]) === 2,
     type: "radioGroup",
     label: "说明",
     extraProps: {
