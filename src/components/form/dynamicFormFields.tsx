@@ -8,12 +8,20 @@ import {
   CheckboxGroupField,
   ComplexField,
   SelectField,
+  CascaderField,
+  UploadField,
   RadioGroupField,
+  RangePickerField,
+  DatePickerField,
 } from "components/dynamic-form/fields";
-import { Form } from "antd";
+import { Form, FormInstance } from "antd";
 import get from "lodash/get";
+import isFunction from "lodash/isFunction";
 
 const FieldTypeComponent = {
+  upload: UploadField,
+  range: RangePickerField,
+  date: DatePickerField,
   number: NumberField,
   textarea: TextAreaField,
   text: InputField,
@@ -22,15 +30,16 @@ const FieldTypeComponent = {
   complex: ComplexField,
   select: SelectField,
   radioGroup: RadioGroupField,
+  cascader: CascaderField,
 };
 
-const dynamicFormFields = (fields: Array<FieldType>) => {
+const dynamicFormFields = (fields: Array<FieldType>, form: FormInstance) => {
   return fields.map(
     (
       {
         name,
         type,
-        extraProps,
+        extraProps = {},
         prefixIcon,
         suffixIcon,
         calIsVisible = () => true,
@@ -47,20 +56,29 @@ const dynamicFormFields = (fields: Array<FieldType>) => {
         ...rest,
       };
 
+      if (type === "upload") {
+        formItemProps.valuePropName = "devil-file";
+        formItemProps.getValueFromEvent = (e: any) => {
+          return e.fileList;
+        };
+      }
       const FieldComponent = get(FieldTypeComponent, type, InputField);
+
       return (
         <Form.Item shouldUpdate key={(name || idx).toString()} noStyle>
           {({ getFieldValue }) =>
             calIsVisible(getFieldValue) ? (
               <>
-                {prefixIcon}
+                {isFunction(prefixIcon) ? prefixIcon(form) : prefixIcon}
                 <FormItem {...formItemProps}>
                   <FieldComponent
-                    {...extraProps}
+                    form={form}
+                    name={name}
                     disabled={calIsDisabled(getFieldValue)}
+                    {...extraProps}
                   />
                 </FormItem>
-                {suffixIcon}
+                {isFunction(suffixIcon) ? suffixIcon(form) : suffixIcon}
               </>
             ) : null
           }

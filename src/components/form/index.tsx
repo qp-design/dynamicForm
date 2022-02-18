@@ -35,7 +35,7 @@ const DynamicForm = ({
   }, [defaultFields]);
 
   const computedSubmitValues = useCallback(
-    (values: { [v: string]: unknown }) => {
+    async (values: { [v: string]: unknown }) => {
       const forkTransformConfig = cloneDeep(transformSubmitDataConfig);
       while (forkTransformConfig.length > 0) {
         const {
@@ -46,9 +46,15 @@ const DynamicForm = ({
         } = forkTransformConfig.shift() as TransformType;
         const prevValue = get(values, from);
         const value = get(values, to);
-        set(values, to, format(prevValue, value));
-        if (isDelete) {
-          values = omit(values, from);
+        try {
+          const computedValue = await format(prevValue, value);
+          set(values, to, computedValue);
+          if (isDelete) {
+            values = omit(values, from);
+          }
+        } catch (err: any) {
+          const msg = err.message || err.msg || "数据转化失败";
+          throw new Error(msg);
         }
       }
       return values;
@@ -57,20 +63,26 @@ const DynamicForm = ({
   );
 
   const onFinish = useCallback(
-    (values) => {
+    async (values) => {
       setIsSubmitting(true);
-      onSubmit(
-        computedSubmitValues(values),
-        (msg) => {
-          const { setFieldsValue, getFieldsValue } = form;
-          setIsSubmitting(false);
-          setFieldsValue(getFieldsValue()); // reset form touched state
-          if (msg) message.success(msg);
-        },
-        () => {
-          setIsSubmitting(false);
-        }
-      );
+      try {
+        const value = await computedSubmitValues(values);
+        onSubmit(
+          value,
+          (msg) => {
+            const { setFieldsValue, getFieldsValue } = form;
+            setIsSubmitting(false);
+            setFieldsValue(getFieldsValue()); // reset form touched state
+            if (msg) message.success(msg);
+          },
+          () => {
+            setIsSubmitting(false);
+          }
+        );
+      } catch (err: any) {
+        message.error(err.message);
+        setIsSubmitting(false);
+      }
     },
     [form, onSubmit, computedSubmitValues]
   );
@@ -95,7 +107,7 @@ const DynamicForm = ({
       }}
       name="basic"
     >
-      {dynamicFormFields(fields)}
+      {dynamicFormFields(fields, form)}
       <Form.Item label=" " colon={false}>
         <>
           {saveText && (

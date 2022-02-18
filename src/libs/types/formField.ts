@@ -9,7 +9,11 @@ type formType =
   | "select"
   | "radioGroup"
   | "checkboxGroup"
-  | "complex";
+  | "complex"
+  | "range"
+  | "date"
+  | "cascader"
+  | "upload";
 
 type callResolver = (msg?: string) => void;
 export type submitType<T = any> = [T, callResolver, callResolver];

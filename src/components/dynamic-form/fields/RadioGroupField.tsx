@@ -1,12 +1,14 @@
-import { Radio, Space } from "antd";
+import { Radio, Space, FormInstance } from "antd";
 import ComplexFields from "./ComplexFields";
 
 type emums = "vertical" | "horizontal";
 export default function RadioGroupField({
+  form,
   options,
   direction = "horizontal",
   ...extraProps
 }: {
+  form: FormInstance;
   direction: emums;
   options: Array<any>;
 }) {
@@ -17,7 +19,7 @@ export default function RadioGroupField({
           ({ direction = "horizontal", value, label, suffix }, idx) => (
             <Space key={idx} direction={direction}>
               <Radio value={value}>{label}</Radio>
-              {suffix ? <ComplexFields innerForm={suffix} /> : null}
+              {suffix ? <ComplexFields form={form} innerForm={suffix} /> : null}
             </Space>
           )
         )}
