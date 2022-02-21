@@ -31,6 +31,7 @@ module.exports = {
           buffer: false,
           stream: false,
         },
+        extensions: [".ts", ".tsx", ".js", ".json"],
       };
       return webpackConfig;
     },

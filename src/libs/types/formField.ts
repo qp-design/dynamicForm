@@ -1,11 +1,8 @@
 type formType =
   | "text"
   | "textarea"
-  | "email"
-  | "password"
   | "number"
   | "checkbox"
-  | "file"
   | "select"
   | "radioGroup"
   | "checkboxGroup"
